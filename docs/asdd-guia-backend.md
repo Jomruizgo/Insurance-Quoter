@@ -1,4 +1,6 @@
-# Guía ASDD — Backend Insurance Quoter
+# Guía ASDD — Backends Insurance Quoter
+
+> Esta guía aplica a **ambos microservicios backend**: `Insurance-Quoter-Back` (plataforma-danos-back) e `Insurance-Quoter-Core` (plataforma-core-ohs). Cada uno tiene sus propios features, pero comparten el mismo stack, arquitectura y metodología ASDD.
 
 Paso a paso para trabajar los backends del cotizador con la metodología ASDD en Claude Code.
 
@@ -93,12 +95,20 @@ updated: 2026-04-XX
 
 ### Swagger / OpenAPI (obligatorio en todo endpoint nuevo)
 
-Ambos microservicios deben exponer Swagger UI con `springdoc-openapi`. Cada controller debe anotarse:
+Las anotaciones Swagger **nunca van en el controller**. Se declaran en una interfaz dentro de `rest/swaggerdocs/`. El controller implementa esa interfaz y queda limpio de documentación.
+
+```
+infrastructure/adapter/in/rest/
+├── swaggerdocs/
+│   └── FolioApi.java       ← @Tag, @Operation, @ApiResponse aquí
+└── FolioController.java    ← implements FolioApi, sin anotaciones Swagger
+```
 
 ```java
+// swaggerdocs/FolioApi.java
 @Tag(name = "Folios", description = "Gestión de folios de cotización")
-@RestController
-public class FolioController {
+@RequestMapping("/v1/folios")
+public interface FolioApi {
 
     @Operation(summary = "Crear o recuperar folio")
     @ApiResponses({
@@ -106,12 +116,27 @@ public class FolioController {
         @ApiResponse(responseCode = "200", description = "Folio existente recuperado"),
         @ApiResponse(responseCode = "422", description = "Datos inválidos")
     })
-    @PostMapping("/v1/folios")
-    public ResponseEntity<FolioResponse> createFolio(...) { ... }
+    @PostMapping
+    ResponseEntity<FolioResponse> createFolio(@Valid @RequestBody CreateFolioRequest request);
+}
+
+// FolioController.java
+@RestController
+@RequiredArgsConstructor
+public class FolioController implements FolioApi {
+    private final CreateFolioUseCase createFolioUseCase;
+
+    @Override
+    public ResponseEntity<FolioResponse> createFolio(CreateFolioRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(createFolioUseCase.createFolio(request));
+    }
 }
 ```
 
-Swagger UI disponible en: `http://localhost:<puerto>/swagger-ui/index.html`
+Swagger UI: `http://localhost:<puerto>/swagger-ui/index.html`
+
+> Ver patrón completo y anti-patrones en `.claude/rules/backend.md` — sección "OpenAPI / Swagger".
 
 ### Prompts de ejemplo por feature (Insurance-Quoter-Back)
 
