@@ -87,6 +87,7 @@ services (TDD) → guards/pipes (TDD) → components → pages → ruta
 - SÓLO trabajar en `Insurance-Quoter-Front/`.
 - NO generar tests de componentes ni pages.
 - NO duplicar lógica que ya existe en services.
+- Al completar cada tarea, cerrar el GitHub Issue correspondiente con `gh issue close <N>` o vía MCP GitHub antes de pasar a la siguiente.
 
 ## Memoria
 - Servicios existentes y sus métodos

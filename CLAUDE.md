@@ -44,6 +44,26 @@ infrastructure (adapters) → application (use cases) → domain (model + ports)
 
 ---
 
+## Flujo de ramas (GitFlow)
+
+El proyecto sigue **GitFlow**:
+
+| Rama | Propósito |
+|------|-----------|
+| `main` | Producción — protegida, solo merge desde `release/*` o `hotfix/*` |
+| `develop` | Integración — base para nuevas features |
+| `feature/<ticket>-descripcion` | Nuevas funcionalidades (base: `develop`) |
+| `bugfix/<ticket>-descripcion` | Corrección de bugs (base: `develop`) |
+| `hotfix/<ticket>-descripcion` | Corrección urgente en producción (base: `main`) |
+
+- Commits en **Conventional Commits**: `feat:`, `fix:`, `chore:`, `test:`, `docs:`, `refactor:`
+- **Prohibido** push directo a `main` o `develop`
+- Todo cambio entra por Pull Request con al menos 1 aprobación
+
+Reglas detalladas en `.claude/docs/lineamientos/guidelines.md` sección 4.
+
+---
+
 ## Metodología: TDD
 
 Se aplica **TDD (Red → Green → Refactor)** en todo el código de lógica:
@@ -134,6 +154,7 @@ Una tarea está terminada cuando:
 - [ ] No hay credenciales ni URLs hardcodeadas
 - [ ] La spec está actualizada a estado `IMPLEMENTED`
 - [ ] El README del módulo refleja cómo ejecutar localmente
+- [ ] El GitHub Issue correspondiente a cada tarea está cerrado (`gh issue close <N>` o vía MCP GitHub)
 
 ---
 
@@ -143,3 +164,4 @@ Una tarea está terminada cuando:
 2. **TDD primero** — el test se escribe antes que el código de producción.
 3. **Código en inglés, UI en español** — sin excepciones salvo términos internacionales comunes.
 4. **No suposiciones** — si el requerimiento es ambiguo, preguntar antes de actuar.
+5. **Cerrar issues al terminar** — al completar cada tarea en la fase de implementación, cerrar el GitHub Issue correspondiente usando `gh issue close <N>` o vía MCP GitHub.

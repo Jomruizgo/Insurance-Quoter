@@ -80,6 +80,7 @@ domain → repository → service (TDD) → controller (TDD) → punto de entrad
 - Todo código en inglés — ver CLAUDE.md para mapeo de términos de dominio.
 - Seguir `dev-guidelines.md` y `api-contracts.md` sin excepción.
 - Si la spec y `api-contracts.md` divergen, prevalece `api-contracts.md`.
+- Al completar cada tarea, cerrar el GitHub Issue correspondiente con `gh issue close <N>` o vía MCP GitHub antes de pasar a la siguiente.
 
 ## Memoria
 - Entidades JPA existentes y sus relaciones
