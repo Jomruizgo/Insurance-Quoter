@@ -1,0 +1,430 @@
+<mxfile host="65bd71144e">
+    <diagram id="seq-business-flow" name="Flujo Principal — Vista de Negocio">
+        <mxGraphModel dx="3584" dy="3308" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2339" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Flujo de Cotización de Daños — Escenario mínimo (Vista de Negocio)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="162" y="10" width="1360" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_usr" value="&lt;b&gt;:Agente&lt;/b&gt;" style="shape=mxgraph.uml.actor;html=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="202" y="50" width="80" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_web" value="&lt;b&gt;Pantalla Web&lt;/b&gt;&lt;br&gt;[Cotizador de Daños]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="362" y="50" width="180" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_bck" value="&lt;b&gt;Sistema de Cotización&lt;/b&gt;&lt;br&gt;[Daños]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="582" y="50" width="180" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_cor" value="&lt;b&gt;Catálogo Central&lt;/b&gt;&lt;br&gt;[Core]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="802" y="50" width="180" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_db4" value="&lt;b&gt;Base de Cotizaciones&lt;/b&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1022" y="45" width="180" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_db3" value="&lt;b&gt;Base de Catálogos&lt;/b&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1242" y="45" width="180" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_usr" value="" style="endArrow=none;dashed=1;strokeColor=#999999;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="242" y="105" as="sourcePoint"/>
+                        <mxPoint x="242" y="1900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ll_web" value="" style="endArrow=none;dashed=1;strokeColor=#6c8ebf;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="90" as="sourcePoint"/>
+                        <mxPoint x="452" y="1900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ll_bck" value="" style="endArrow=none;dashed=1;strokeColor=#82b366;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="90" as="sourcePoint"/>
+                        <mxPoint x="672" y="1900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ll_cor" value="" style="endArrow=none;dashed=1;strokeColor=#d6b656;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="892" y="90" as="sourcePoint"/>
+                        <mxPoint x="892" y="1900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ll_db4" value="" style="endArrow=none;dashed=1;strokeColor=#d79b00;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1112" y="95" as="sourcePoint"/>
+                        <mxPoint x="1112" y="1900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ll_db3" value="" style="endArrow=none;dashed=1;strokeColor=#9673a6;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1332" y="95" as="sourcePoint"/>
+                        <mxPoint x="1332" y="1900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec1_bg" value="&lt;b&gt;1. Apertura de Cotización&lt;/b&gt; — El agente inicia una nueva cotización y el sistema le asigna un folio único" style="text;html=1;strokeColor=#1168BD;fillColor=#dae8fc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="162" y="120" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m1" value="Inicia nueva cotización" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="242" y="158" as="sourcePoint"/>
+                        <mxPoint x="452" y="158" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m2" value="Solicita apertura de cotización para suscriptor SUB-001 / agente AGT-123" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="185" as="sourcePoint"/>
+                        <mxPoint x="672" y="185" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m3" value="Solicita el siguiente número de folio disponible para el año 2026" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="212" as="sourcePoint"/>
+                        <mxPoint x="892" y="212" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m4" value="Genera número de folio secuencial para el año 2026" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="892" y="232" as="sourcePoint"/>
+                        <mxPoint x="1332" y="232" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m4r" value="Folio asignado: FOL-2026-00042" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1332" y="254" as="sourcePoint"/>
+                        <mxPoint x="892" y="254" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m3r" value="Folio FOL-2026-00042 generado el 20/04/2026" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="892" y="276" as="sourcePoint"/>
+                        <mxPoint x="672" y="276" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m5" value="Registra nueva cotización con estado: CREADA" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="302" as="sourcePoint"/>
+                        <mxPoint x="1112" y="302" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m5r" value="Cotización registrada" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1112" y="322" as="sourcePoint"/>
+                        <mxPoint x="672" y="322" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m2r" value="Cotización creada — Folio: FOL-2026-00042" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="350" as="sourcePoint"/>
+                        <mxPoint x="452" y="350" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m1r" value="Redirige a: captura de datos del asegurado — Folio FOL-2026-00042" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="372" as="sourcePoint"/>
+                        <mxPoint x="242" y="372" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec2_bg" value="&lt;b&gt;2. Datos del Asegurado&lt;/b&gt; — Información de la empresa, agente responsable y clasificación del riesgo" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="162" y="400" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m6" value="Captura nombre del asegurado, agente y tipo de negocio" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="242" y="438" as="sourcePoint"/>
+                        <mxPoint x="452" y="438" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m7" value="Guarda información del asegurado y del agente responsable" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="465" as="sourcePoint"/>
+                        <mxPoint x="672" y="465" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m8" value="Actualiza datos del asegurado en la cotización" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="490" as="sourcePoint"/>
+                        <mxPoint x="1112" y="490" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m8r" value="Guardado" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1112" y="510" as="sourcePoint"/>
+                        <mxPoint x="672" y="510" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m7r" value="Datos del asegurado registrados — Cotización en progreso" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="537" as="sourcePoint"/>
+                        <mxPoint x="452" y="537" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m6r" value="Confirmación: datos del asegurado guardados correctamente" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="560" as="sourcePoint"/>
+                        <mxPoint x="242" y="560" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec3_bg" value="&lt;b&gt;3. Bienes a Asegurar&lt;/b&gt; — Registro de ubicaciones y propiedades. Dos ubicaciones: una completa, una sin código postal" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="162" y="585" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m9" value="Define que la cotización cubre 2 ubicaciones independientes" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="242" y="623" as="sourcePoint"/>
+                        <mxPoint x="452" y="623" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m10" value="Configura estructura: cotización de 2 ubicaciones múltiples" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="650" as="sourcePoint"/>
+                        <mxPoint x="672" y="650" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m11" value="Guarda configuración: número y tipo de ubicaciones a asegurar" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="672" as="sourcePoint"/>
+                        <mxPoint x="1112" y="672" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m11r" value="Guardado" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1112" y="690" as="sourcePoint"/>
+                        <mxPoint x="672" y="690" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m10r" value="Estructura de 2 ubicaciones configurada" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="708" as="sourcePoint"/>
+                        <mxPoint x="452" y="708" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m9r" value="Muestra pantalla de registro de ubicaciones" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="730" as="sourcePoint"/>
+                        <mxPoint x="242" y="730" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m12" value="Registra: Ubicación 1 (dirección, CP 06600, giro comercial, garantías completas) y Ubicación 2 (datos básicos, sin código postal)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="242" y="755" as="sourcePoint"/>
+                        <mxPoint x="452" y="755" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m13" value="Guarda las 2 ubicaciones con sus propiedades y garantías" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="783" as="sourcePoint"/>
+                        <mxPoint x="672" y="783" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m14" value="Valida código postal 06600 y consulta zonas de riesgo asignadas" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="809" as="sourcePoint"/>
+                        <mxPoint x="892" y="809" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m15" value="Busca información del código postal en el catálogo de zonas" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="892" y="829" as="sourcePoint"/>
+                        <mxPoint x="1332" y="829" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m15r" value="COP – Cuauhtémoc | Zona catastrófica A | Zona sísmica TEV-1 | Zona hidrometeorológica FHM-2" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1332" y="851" as="sourcePoint"/>
+                        <mxPoint x="892" y="851" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m14r" value="CP 06600 válido — zona catastrófica A, zona sísmica y zona hidrometeorológica identificadas" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="892" y="874" as="sourcePoint"/>
+                        <mxPoint x="672" y="874" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="note_val" value="Evaluación de cada ubicación:&#xa;• Ubic. 1: Código postal válido, giro y garantías completos → COMPLETA (puede calcularse)&#xa;• Ubic. 2: Sin código postal → INCOMPLETA — Alerta: CÓDIGO POSTAL REQUERIDO" style="text;html=0;strokeColor=#666666;fillColor=#ffffcc;align=left;verticalAlign=top;spacingLeft=6;rounded=1;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="582" y="893" width="390" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="m16" value="Registra las ubicaciones, sus garantías y estado de validación de cada una" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="958" as="sourcePoint"/>
+                        <mxPoint x="1112" y="958" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m16r" value="Guardado" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1112" y="978" as="sourcePoint"/>
+                        <mxPoint x="672" y="978" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m13r" value="Ubicaciones registradas — Ubicación 1: Completa | Ubicación 2: Incompleta (falta código postal)" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="1005" as="sourcePoint"/>
+                        <mxPoint x="452" y="1005" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m12r" value="Muestra estado: Ubicación 1 lista para calcular | Ubicación 2 requiere código postal" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="1028" as="sourcePoint"/>
+                        <mxPoint x="242" y="1028" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec4_bg" value="&lt;b&gt;4. Selección de Coberturas&lt;/b&gt; — El agente elige qué riesgos cubre la póliza y configura los deducibles" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="162" y="1053" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m17" value="Selecciona coberturas: Incendio (deducible 2%) y Robo (deducible 5%)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="242" y="1091" as="sourcePoint"/>
+                        <mxPoint x="452" y="1091" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m18" value="Guarda las coberturas y porcentajes de deducible seleccionados" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="1118" as="sourcePoint"/>
+                        <mxPoint x="672" y="1118" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m19" value="Registra coberturas activas y deducibles en la cotización" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="1142" as="sourcePoint"/>
+                        <mxPoint x="1112" y="1142" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m19r" value="Guardado" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1112" y="1162" as="sourcePoint"/>
+                        <mxPoint x="672" y="1162" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m18r" value="Coberturas y deducibles configurados correctamente" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="1189" as="sourcePoint"/>
+                        <mxPoint x="452" y="1189" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m17r" value="Confirmación: coberturas y deducibles guardados" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="1212" as="sourcePoint"/>
+                        <mxPoint x="242" y="1212" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec5_bg" value="&lt;b&gt;5. Cálculo de Prima&lt;/b&gt; — El sistema calcula el costo de asegurar las ubicaciones según tarifas vigentes y coberturas seleccionadas" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="162" y="1237" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m20" value="[Clic] Calcular prima de la cotización" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="242" y="1274" as="sourcePoint"/>
+                        <mxPoint x="452" y="1274" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m21" value="Solicita cálculo de prima para la cotización FOL-2026-00042" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="1302" as="sourcePoint"/>
+                        <mxPoint x="672" y="1302" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m22" value="Carga todos los datos: asegurado, ubicaciones, coberturas y garantías" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="1327" as="sourcePoint"/>
+                        <mxPoint x="1112" y="1327" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m22r" value="Cotización completa: 2 ubicaciones con garantías y coberturas seleccionadas" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1112" y="1350" as="sourcePoint"/>
+                        <mxPoint x="672" y="1350" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m23" value="Solicita tarifas vigentes para calcular la prima" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="1377" as="sourcePoint"/>
+                        <mxPoint x="892" y="1377" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m24" value="Busca tarifas vigentes: incendio, catástrofes (terremoto, hidrometeorológico) y equipo electrónico" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="892" y="1400" as="sourcePoint"/>
+                        <mxPoint x="1332" y="1400" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m24r" value="Tarifas vigentes: incendio, terremoto-erupción, hidrometeorológico, robo y equipo electrónico" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1332" y="1422" as="sourcePoint"/>
+                        <mxPoint x="892" y="1422" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m23r" value="Tarifas aplicables según zona de riesgo, tipo de construcción y giro de cada ubicación" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="892" y="1447" as="sourcePoint"/>
+                        <mxPoint x="672" y="1447" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="note_calc" value="Lógica de cálculo de prima:&#xa;• Ubicación 1: Código postal válido, giro y garantías completos → SE CALCULA&#xa;  Prima = Incendio + Extensiones + Terremoto + Fenóm. hidrometeorológico + Robo + Equipo = $48,500&#xa;  Prima comercial = $48,500 × factor de utilidad = $56,260&#xa;• Ubicación 2: Sin código postal → ALERTA BLOQUEANTE: CÓDIGO POSTAL REQUERIDO (no se calcula)" style="text;html=0;strokeColor=#b85450;fillColor=#ffe6cc;align=left;verticalAlign=top;spacingLeft=6;rounded=1;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="582" y="1467" width="420" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="m25" value="Guarda prima neta $48,500 y prima comercial $56,260 con desglose por cobertura" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="1570" as="sourcePoint"/>
+                        <mxPoint x="1112" y="1570" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m25r" value="Cálculo guardado" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1112" y="1595" as="sourcePoint"/>
+                        <mxPoint x="672" y="1595" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m21r" value="Prima calculada — Ubic. 1: Prima neta $48,500 / Prima comercial $56,260 | Ubic. 2: requiere código postal" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="1625" as="sourcePoint"/>
+                        <mxPoint x="452" y="1625" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m20r" value="Muestra: Prima Neta = $48,500 | Prima Comercial = $56,260 | ⚠ Ubicación 2: Se requiere código postal para calcular su prima" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="1652" as="sourcePoint"/>
+                        <mxPoint x="242" y="1652" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec6_bg" value="&lt;b&gt;6. Estado de la Cotización&lt;/b&gt; — El agente verifica el avance general antes de continuar hacia la emisión de la póliza" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="162" y="1677" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m26" value="Consulta el estado y avance de la cotización" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="242" y="1714" as="sourcePoint"/>
+                        <mxPoint x="452" y="1714" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m27" value="Solicita estado actual de la cotización FOL-2026-00042" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="1740" as="sourcePoint"/>
+                        <mxPoint x="672" y="1740" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m28" value="Consulta estado y fecha de última modificación de la cotización" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="1762" as="sourcePoint"/>
+                        <mxPoint x="1112" y="1762" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m28r" value="Estado: CALCULADA — 20/04/2026" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1112" y="1784" as="sourcePoint"/>
+                        <mxPoint x="672" y="1784" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m27r" value="Cotización CALCULADA al 100% | Asegurado ✓ | Ubicaciones ⚠ (1 de 2 incompleta) | Coberturas ✓ | Cálculo ✓" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="672" y="1812" as="sourcePoint"/>
+                        <mxPoint x="452" y="1812" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m26r" value="Estado: CALCULADA | Ubicación 2 pendiente de código postal | Prima disponible para continuar con la emisión" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="452" y="1840" as="sourcePoint"/>
+                        <mxPoint x="242" y="1840" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="legend" value="&lt;b&gt;Leyenda:&lt;/b&gt;&lt;br&gt;──────→  Acción / solicitud&lt;br&gt;- - - -→  Respuesta / resultado&lt;br&gt;📦 Caja naranja = decisión interna del sistema" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=8;spacingRight=8;rounded=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="832" y="1990" width="290" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

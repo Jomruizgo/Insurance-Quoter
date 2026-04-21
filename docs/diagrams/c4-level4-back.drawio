@@ -1,0 +1,219 @@
+<mxfile host="65bd71144e">
+    <diagram id="c4-l4-back" name="C4 Level 4 — Código: plataforma-danos-back">
+        <mxGraphModel dx="902" dy="636" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2336" pageHeight="1654" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="C4 Nivel 4 — Diagrama de Clases: plataforma-danos-back" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="20" width="2200" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="subtitle" value="Muestra la estructura interna de clases, interfaces y sus relaciones para las tres capas del patrón Hexagonal." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="54" width="2200" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="sec_inp" value="domain/port/in — Input Ports (interfaces)" style="text;html=1;strokeColor=#4a86c8;fillColor=#e6f3ff;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="106" width="319" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="ip_folio" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;CreateFolioInputPort&lt;/b&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ execute(subscriberId: String, agentCode: String): FolioResult" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6f3ff;strokeColor=#4a86c8;fontSize=10;align=left;spacingLeft=6;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="545.5" width="320" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="ip_general" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;ManageGeneralInfoInputPort&lt;/b&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ get(folio: String): QuoteGeneralInfo&lt;br&gt;+ update(folio: String, data: QuoteGeneralInfo, version: int): QuoteGeneralInfo" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6f3ff;strokeColor=#4a86c8;fontSize=10;align=left;spacingLeft=6;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="477" y="140" width="320" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="ip_locations" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;ManageLocationsInputPort&lt;/b&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ getLayout(folio): LayoutConfiguration&lt;br&gt;+ setLayout(folio, layout, ver): LayoutConfiguration&lt;br&gt;+ putAll(folio, locations, ver): List&lt;Location&gt;&lt;br&gt;+ patch(folio, index, data, ver): Location" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6f3ff;strokeColor=#4a86c8;fontSize=10;align=left;spacingLeft=6;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="479" y="237.5" width="320" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ip_coverage" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;ManageCoverageOptionsInputPort&lt;/b&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ get(folio: String): CoverageOptions&lt;br&gt;+ put(folio: String, opts: CoverageOptions, ver: int): CoverageOptions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6f3ff;strokeColor=#4a86c8;fontSize=10;align=left;spacingLeft=6;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="343" width="320" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="ip_calc" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;CalculatePremiumInputPort&lt;/b&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ execute(folio: String, version: int): PremiumResult" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6f3ff;strokeColor=#4a86c8;fontSize=10;align=left;spacingLeft=6;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="481" y="626" width="320" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="ip_state" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;GetQuoteStateInputPort&lt;/b&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ getState(folio: String): QuoteState" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6f3ff;strokeColor=#4a86c8;fontSize=10;align=left;spacingLeft=6;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="481" y="450" width="320" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="sec_outp" value="domain/port/out — Output Ports (interfaces)" style="text;html=1;strokeColor=#b85450;fillColor=#ffe6e6;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="756" width="321" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="op_repo" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;QuoteRepositoryPort&lt;/b&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ findByFolio(folio: String): Optional&lt;Quote&gt;&lt;br&gt;+ save(quote: Quote): Quote&lt;br&gt;+ update(quote: Quote): Quote&lt;br&gt;+ findLocations(folio: String): List&lt;Location&gt;&lt;br&gt;+ saveLocations(folio: String, locs: List&lt;Location&gt;): void" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6e6;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=6;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="790" width="253" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="op_core" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;CoreServicePort&lt;/b&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ generateFolio(year: int): String&lt;br&gt;+ getZipCode(zipCode: String): ZipCodeInfo&lt;br&gt;+ getTariffs(criteria: TariffCriteria): Tariffs&lt;br&gt;+ getGuarantees(): List&lt;Guarantee&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6e6;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=6;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="918" width="248" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="sec_app" value="application/usecase — Use Cases (implementan Input Ports, inyectan Output Ports)" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="870" y="106" width="650" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc_folio" value="&lt;b&gt;CreateFolioUseCase&lt;/b&gt;&lt;br&gt;implements CreateFolioInputPort&lt;br&gt;─────────────────────&lt;br&gt;- quoteRepo: QuoteRepositoryPort&lt;br&gt;- coreService: CoreServicePort&lt;br&gt;─────────────────────&lt;br&gt;+ execute(subscriberId, agentCode): FolioResult&lt;br&gt;  1. coreService.generateFolio(year)&lt;br&gt;  2. si folio existe → return 200 (idempotente)&lt;br&gt;  3. quoteRepo.save(new Quote(folio, CREATED))" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="875" y="733" width="350" height="145" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc_general" value="&lt;b&gt;ManageGeneralInfoUseCase&lt;/b&gt;&lt;br&gt;implements ManageGeneralInfoInputPort&lt;br&gt;─────────────────────&lt;br&gt;- quoteRepo: QuoteRepositoryPort&lt;br&gt;─────────────────────&lt;br&gt;+ get(folio): QuoteGeneralInfo&lt;br&gt;+ update(folio, data, version): QuoteGeneralInfo&lt;br&gt;  1. quoteRepo.findByFolio → optimistic lock check&lt;br&gt;  2. quote.updateGeneralInfo(data)&lt;br&gt;  3. quoteRepo.update(quote)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="875" y="152.5" width="350" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc_locations" value="&lt;b&gt;ManageLocationsUseCase&lt;/b&gt;&lt;br&gt;implements ManageLocationsInputPort&lt;br&gt;─────────────────────&lt;br&gt;- quoteRepo: QuoteRepositoryPort&lt;br&gt;- coreService: CoreServicePort&lt;br&gt;─────────────────────&lt;br&gt;+ putAll(folio, locations, ver): List&lt;Location&gt;&lt;br&gt;  1. Por cada ubicación con zipCode:&lt;br&gt;     coreService.getZipCode → asigna zonas&lt;br&gt;  2. Valida cada ubicación → blockingAlerts&lt;br&gt;  3. quoteRepo.saveLocations(folio, locations)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="875" y="308" width="350" height="155" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc_coverage" value="&lt;b&gt;ManageCoverageOptionsUseCase&lt;/b&gt;&lt;br&gt;implements ManageCoverageOptionsInputPort&lt;br&gt;─────────────────────&lt;br&gt;- quoteRepo: QuoteRepositoryPort&lt;br&gt;─────────────────────&lt;br&gt;+ put(folio, opts, ver): CoverageOptions&lt;br&gt;  1. optimistic lock check&lt;br&gt;  2. quote.setCoverageOptions(opts)&lt;br&gt;  3. quoteRepo.update(quote)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="875" y="476" width="350" height="125" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc_calc" value="&lt;b&gt;CalculatePremiumUseCase&lt;/b&gt;&lt;br&gt;implements CalculatePremiumInputPort&lt;br&gt;&lt;u&gt;GoF: Strategy — delega cálculo por cobertura&lt;/u&gt;&lt;br&gt;─────────────────────&lt;br&gt;- quoteRepo: QuoteRepositoryPort&lt;br&gt;- coreService: CoreServicePort&lt;br&gt;- strategies: List&lt;PremiumCalculationStrategy&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ execute(folio, version): PremiumResult&lt;br&gt;  1. quoteRepo.findByFolio(folio)&lt;br&gt;  2. coreService.getTariffs(criteria)&lt;br&gt;  3. por cada location calculable:&lt;br&gt;     breakdown = strategies.map(s→s.calculate(loc, tariff))&lt;br&gt;     netPremium = breakdown.total()&lt;br&gt;  4. commercialPremium = netPremium × factor&lt;br&gt;  5. quote.updatePremium(result)&lt;br&gt;  6. quoteRepo.update(quote)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="875" y="889" width="350" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc_state" value="&lt;b&gt;GetQuoteStateUseCase&lt;/b&gt;&lt;br&gt;implements GetQuoteStateInputPort&lt;br&gt;─────────────────────&lt;br&gt;- quoteRepo: QuoteRepositoryPort&lt;br&gt;─────────────────────&lt;br&gt;+ getState(folio): QuoteState&lt;br&gt;  Evalúa completitud de cada sección&lt;br&gt;  y calcula completionPercentage" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="875" y="609" width="350" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="sec_strategy" value="application/usecase/strategy — GoF: Strategy Pattern (cálculo de prima por componente)" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="106" width="700" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="strategy_iface" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;PremiumCalculationStrategy&lt;/b&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ calculate(location: Location, tariff: Tariffs): BigDecimal&lt;br&gt;+ getCoverageType(): CoverageType" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="140" width="280" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="str1" value="&lt;b&gt;FireBuildingsPremiumStrategy&lt;/b&gt;&lt;br&gt;fireKey × constructionRate × insuredValue" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="256" width="290" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="str2" value="&lt;b&gt;FireContentsPremiumStrategy&lt;/b&gt;&lt;br&gt;fireKey × contentsRate × insuredValue" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="310" width="290" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="str3" value="&lt;b&gt;CoverageExtensionPremiumStrategy&lt;/b&gt;&lt;br&gt;extensionFactor × insuredValue" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="364" width="290" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="str4" value="&lt;b&gt;CattevPremiumStrategy&lt;/b&gt;&lt;br&gt;cattevFactor(tevZone) × insuredValue" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="418" width="290" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="str5" value="&lt;b&gt;CatfhmPremiumStrategy&lt;/b&gt;&lt;br&gt;catfhmFactor(fhmZone) × insuredValue" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="472" width="290" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="str6" value="&lt;b&gt;DebrisRemovalPremiumStrategy&lt;/b&gt;&lt;br&gt;debrisRate × insuredValue" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="526" width="290" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="str7" value="&lt;b&gt;ExtraordinaryExpensesPremiumStrategy&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="580" width="290" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="str8" value="&lt;b&gt;RentalLossPremiumStrategy&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="621" width="290" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="str9" value="&lt;b&gt;BusinessInterruptionPremiumStrategy&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="662" width="290" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="str10" value="&lt;b&gt;ElectronicEquipmentPremiumStrategy&lt;/b&gt;&lt;br&gt;electronicFactor × equipmentValue" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="703" width="290" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="str11" value="&lt;b&gt;TheftPremiumStrategy&lt;/b&gt;&lt;br&gt;theftRate × insuredValue" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="757" width="290" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="str12" value="&lt;b&gt;CashAndValuesPremiumStrategy&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="811" width="290" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="str13" value="&lt;b&gt;GlassPremiumStrategy&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="852" width="290" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="str14" value="&lt;b&gt;LuminousSignagePremiumStrategy&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff9f0;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="893" width="290" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="sec_dom" value="domain/model — Aggregate Root | Entities | Value Objects | Enums" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1680" y="106" width="650" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="d_quote" value="&lt;b&gt;Quote&lt;/b&gt; [Aggregate Root]&lt;br&gt;─────────────────────&lt;br&gt;- folioNumber: String&lt;br&gt;- quoteStatus: QuoteStatus&lt;br&gt;- insuredData: InsuredData&lt;br&gt;- underwritingData: UnderwritingData&lt;br&gt;- layoutConfiguration: LayoutConfiguration&lt;br&gt;- locations: List&lt;Location&gt;&lt;br&gt;- coverageOptions: CoverageOptions&lt;br&gt;- netPremium: BigDecimal&lt;br&gt;- commercialPremium: BigDecimal&lt;br&gt;- premiumsByLocation: List&lt;LocationPremium&gt;&lt;br&gt;- version: int&lt;br&gt;- createdAt: LocalDateTime&lt;br&gt;- updatedAt: LocalDateTime&lt;br&gt;─────────────────────&lt;br&gt;+ addLocation(loc: Location): void&lt;br&gt;+ updateGeneralInfo(data): void&lt;br&gt;+ updatePremium(result: PremiumResult): void&lt;br&gt;+ isCalculable(): boolean&lt;br&gt;+ incrementVersion(): void" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=6;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1680" y="140" width="290" height="340" as="geometry"/>
+                </mxCell>
+                <mxCell id="d_location" value="&lt;b&gt;Location&lt;/b&gt; [Entity]&lt;br&gt;─────────────────────&lt;br&gt;- index: int&lt;br&gt;- locationName: String&lt;br&gt;- address: String&lt;br&gt;- zipCode: String&lt;br&gt;- state: String&lt;br&gt;- municipality: String&lt;br&gt;- businessLine: BusinessLine&lt;br&gt;- constructionType: ConstructionType&lt;br&gt;- constructionYear: int&lt;br&gt;- guarantees: List&lt;Guarantee&gt;&lt;br&gt;- catastrophicZone: String&lt;br&gt;- tevZone: String | fhmZone: String&lt;br&gt;- validationStatus: ValidationStatus&lt;br&gt;- blockingAlerts: List&lt;BlockingAlert&gt;&lt;br&gt;─────────────────────&lt;br&gt;+ isCalculable(): boolean&lt;br&gt;+ validate(): ValidationStatus" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="2038" y="140" width="290" height="295" as="geometry"/>
+                </mxCell>
+                <mxCell id="d_coverage" value="&lt;b&gt;CoverageOptions&lt;/b&gt; [Entity]&lt;br&gt;─────────────────────&lt;br&gt;- selectedCoverages: List&lt;CoverageType&gt;&lt;br&gt;- deductiblePercentage: BigDecimal&lt;br&gt;- coinsurancePercentage: BigDecimal" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1680" y="545" width="290" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="d_premium" value="&lt;b&gt;PremiumBreakdown&lt;/b&gt; [Value Object]&lt;br&gt;─────────────────────&lt;br&gt;- fireBuildings: BigDecimal&lt;br&gt;- fireContents: BigDecimal&lt;br&gt;- coverageExtension: BigDecimal&lt;br&gt;- cattev: BigDecimal&lt;br&gt;- catfhm: BigDecimal&lt;br&gt;- debrisRemoval: BigDecimal&lt;br&gt;- extraordinaryExpenses: BigDecimal&lt;br&gt;- rentalLoss: BigDecimal&lt;br&gt;- businessInterruption: BigDecimal&lt;br&gt;- electronicEquipment: BigDecimal&lt;br&gt;- theft: BigDecimal&lt;br&gt;- cashAndValues: BigDecimal&lt;br&gt;- glass: BigDecimal&lt;br&gt;- luminousSignage: BigDecimal&lt;br&gt;─────────────────────&lt;br&gt;+ total(): BigDecimal" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="2036" y="484" width="290" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="d_alert" value="&lt;b&gt;BlockingAlert&lt;/b&gt; [Value Object / Enum]&lt;br&gt;─────────────────────&lt;br&gt;MISSING_ZIP_CODE&lt;br&gt;MISSING_FIRE_KEY&lt;br&gt;NO_TARIFABLE_GUARANTEES" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1680" y="664" width="290" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="d_quotestatus" value="&lt;b&gt;QuoteStatus&lt;/b&gt; [Enum]&lt;br&gt;─────────────────────&lt;br&gt;CREATED | IN_PROGRESS | CALCULATED" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="1680" y="766" width="290" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="sec_infra" value="infrastructure/adapter/out — Adapters (implementan Output Ports)" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="22" y="106" width="367" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="a_quote" value="&lt;b&gt;QuoteJpaAdapter&lt;/b&gt;&lt;br&gt;implements QuoteRepositoryPort&lt;br&gt;&lt;u&gt;GoF: Repository&lt;/u&gt;&lt;br&gt;─────────────────────&lt;br&gt;- quoteJpaRepository: JpaRepository&lt;br&gt;- quoteJpaMapper: QuoteJpaMapper&lt;br&gt;─────────────────────&lt;br&gt;+ findByFolio(folio): Optional&lt;Quote&gt;&lt;br&gt;+ save(quote): Quote&lt;br&gt;+ update(quote): Quote" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="22" y="140" width="300" height="165" as="geometry"/>
+                </mxCell>
+                <mxCell id="a_location" value="&lt;b&gt;LocationJpaAdapter&lt;/b&gt;&lt;br&gt;implements QuoteRepositoryPort (parte)&lt;br&gt;&lt;u&gt;GoF: Repository&lt;/u&gt;&lt;br&gt;─────────────────────&lt;br&gt;- locationJpaRepository: JpaRepository&lt;br&gt;- locationJpaMapper: LocationJpaMapper&lt;br&gt;─────────────────────&lt;br&gt;+ findLocations(folio): List&lt;Location&gt;&lt;br&gt;+ saveLocations(folio, locs): void" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="22" y="318" width="300" height="155" as="geometry"/>
+                </mxCell>
+                <mxCell id="a_core" value="&lt;b&gt;CoreServiceHttpAdapter&lt;/b&gt;&lt;br&gt;implements CoreServicePort&lt;br&gt;&lt;u&gt;GoF: Façade&lt;/u&gt; — un único punto de entrada al Core API&lt;br&gt;─────────────────────&lt;br&gt;- restClient: RestClient&lt;br&gt;- coreBaseUrl: String&lt;br&gt;─────────────────────&lt;br&gt;+ generateFolio(year): String  → GET /v1/folios&lt;br&gt;+ getZipCode(zipCode): ZipCodeInfo  → GET /v1/zip-codes/{code}&lt;br&gt;+ getTariffs(criteria): Tariffs  → GET /v1/tariffs&lt;br&gt;+ getGuarantees(): List&lt;Guarantee&gt;  → GET /v1/catalogs/guarantees" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=6;" parent="1" vertex="1">
+                    <mxGeometry x="22" y="488" width="300" height="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_uc_folio_ip" value="implements" style="dashed=1;endArrow=block;endFill=0;html=1;fontSize=9;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=entityRelationEdgeStyle;" parent="1" source="uc_folio" target="ip_folio" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_uc_gen_ip" value="implements" style="dashed=1;endArrow=block;endFill=0;html=1;fontSize=9;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=entityRelationEdgeStyle;" parent="1" source="uc_general" target="ip_general" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_uc_loc_ip" value="implements" style="dashed=1;endArrow=block;endFill=0;html=1;fontSize=9;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=entityRelationEdgeStyle;" parent="1" source="uc_locations" target="ip_locations" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_uc_cov_ip" value="implements" style="dashed=1;endArrow=block;endFill=0;html=1;fontSize=9;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=entityRelationEdgeStyle;" parent="1" source="uc_coverage" target="ip_coverage" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_uc_calc_ip" value="implements" style="dashed=1;endArrow=block;endFill=0;html=1;fontSize=9;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=entityRelationEdgeStyle;jumpStyle=arc;" parent="1" source="uc_calc" target="ip_calc" edge="1">
+                    <mxGeometry x="0.1265" y="2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arr_uc_state_ip" value="implements" style="dashed=1;endArrow=block;endFill=0;html=1;fontSize=9;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=entityRelationEdgeStyle;" parent="1" source="uc_state" target="ip_state" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_uc_folio_op1" value="uses" style="endArrow=open;endFill=0;dashed=1;html=1;fontSize=9;edgeStyle=entityRelationEdgeStyle;jumpStyle=arc;" parent="1" source="uc_folio" target="op_repo" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_uc_folio_op2" value="uses" style="endArrow=open;endFill=0;dashed=1;html=1;fontSize=9;edgeStyle=entityRelationEdgeStyle;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="uc_folio" target="op_core" edge="1">
+                    <mxGeometry x="-0.2532" y="-5" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arr_uc_calc_op1" value="uses" style="endArrow=open;endFill=0;dashed=1;html=1;fontSize=9;edgeStyle=entityRelationEdgeStyle;jumpStyle=arc;" parent="1" source="uc_calc" target="op_repo" edge="1">
+                    <mxGeometry x="-0.0511" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arr_uc_calc_op2" value="uses" style="endArrow=open;endFill=0;dashed=1;html=1;fontSize=9;edgeStyle=entityRelationEdgeStyle;" parent="1" source="uc_calc" target="op_core" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_a_quote_op" value="implements" style="dashed=1;endArrow=block;endFill=0;html=1;fontSize=9;edgeStyle=entityRelationEdgeStyle;" parent="1" source="a_quote" target="op_repo" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_a_core_op" value="implements" style="dashed=1;endArrow=block;endFill=0;html=1;fontSize=9;edgeStyle=entityRelationEdgeStyle;" parent="1" source="a_core" target="op_core" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_str1" value="implements" style="dashed=1;endArrow=block;endFill=0;html=1;fontSize=9;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;curved=1;" parent="1" source="str1" target="strategy_iface" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_str_etc" value="implements (×14)" style="dashed=1;endArrow=block;endFill=0;html=1;fontSize=9;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="str14" target="strategy_iface" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1633" y="909"/>
+                            <mxPoint x="1633" y="183"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arr_q_l" value="1..N" style="endArrow=block;endFill=1;startArrow=diamondThin;startFill=1;html=1;fontSize=9;edgeStyle=entityRelationEdgeStyle;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="d_quote" target="d_location" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_q_cov" value="0..1" style="endArrow=block;endFill=1;startArrow=diamondThin;startFill=1;html=1;fontSize=9;" parent="1" source="d_quote" target="d_coverage" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_l_pb" value="0..1" style="endArrow=block;endFill=1;startArrow=diamondThin;startFill=1;html=1;fontSize=9;" parent="1" source="d_location" target="d_premium" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_l_alert" value="0..N" style="endArrow=block;endFill=1;startArrow=diamondThin;startFill=1;html=1;fontSize=9;edgeStyle=entityRelationEdgeStyle;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="d_location" target="d_alert" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arr_uc_strategy" value="injects / uses" style="endArrow=open;endFill=0;dashed=1;html=1;fontSize=9;edgeStyle=entityRelationEdgeStyle;" parent="1" source="uc_calc" target="strategy_iface" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend" value="&lt;b&gt;Convenciones UML:&lt;/b&gt;&lt;br&gt;──▷  implements (dashed, hollow head)&lt;br&gt;--→  uses / depends on (dashed, open)&lt;br&gt;◆──  composition (diamond, filled)&lt;br&gt;&lt;br&gt;&lt;b&gt;Patrones GoF visibles:&lt;/b&gt;&lt;br&gt;• &lt;b&gt;Strategy&lt;/b&gt;: PremiumCalculationStrategy (×14)&lt;br&gt;• &lt;b&gt;Repository&lt;/b&gt;: QuoteJpaAdapter, LocationJpaAdapter&lt;br&gt;• &lt;b&gt;Façade&lt;/b&gt;: CoreServiceHttpAdapter&lt;br&gt;• &lt;b&gt;DTO&lt;/b&gt;: Request/Response + JPA Entity&lt;br&gt;• &lt;b&gt;Mapper&lt;/b&gt;: RestMapper, JpaMapper" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=8;spacingRight=8;rounded=1;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="22" y="706" width="300" height="210" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

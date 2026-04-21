@@ -1,0 +1,56 @@
+<mxfile host="65bd71144e">
+    <diagram id="c4-l2" name="C4 L2 - Containers">
+        <mxGraphModel dx="2624" dy="3308" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Sistema Cotizador de Daños — Diagrama de Contenedores [C4 Level 2]" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=18;fontStyle=1;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="20" width="1200" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="boundary" value="Sistema Cotizador de Daños" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#0B4884;strokeWidth=2;verticalAlign=top;fontSize=15;fontStyle=1;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="80" width="1370" height="980" as="geometry"/>
+                </mxCell>
+                <mxCell id="backquote" value="&lt;b&gt;plataforma-danos-back&lt;/b&gt;&lt;br&gt;&lt;i style=&#39;font-size:10px&#39;&gt;[Container: Spring Boot 4 / Java 21]&lt;/i&gt;&lt;br&gt;&lt;br&gt;API REST principal. Gestiona folios,&lt;br&gt;cotizaciones, ubicaciones, coberturas&lt;br&gt;y ejecuta el cálculo de prima.&lt;br&gt;Puerto: 8080" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#006EAF;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="375" width="280" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="backcore" value="&lt;b&gt;plataforma-core-ohs&lt;/b&gt;&lt;br&gt;&lt;i style=&#39;font-size:10px&#39;&gt;[Container: Spring Boot 4 / Java 21]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Servicio de referencia. Provee catálogos,&lt;br&gt;tarifas, agentes, suscriptores,&lt;br&gt;códigos postales y folios.&lt;br&gt;Puerto: 8081" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#006EAF;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1280" y="375" width="280" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="dbquote" value="&lt;b&gt;BD Cotizaciones&lt;/b&gt;&lt;br&gt;&lt;i style=&#39;font-size:10px&#39;&gt;[Container: PostgreSQL]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Almacena cotizaciones,&lt;br&gt;ubicaciones, coberturas&lt;br&gt;y resultados de cálculo.&lt;br&gt;Puerto: 5432" style="shape=cylinder3;size=15;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#006EAF;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="770" y="655" width="260" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="dbcore" value="&lt;b&gt;BD Core&lt;/b&gt;&lt;br&gt;&lt;i style=&#39;font-size:10px&#39;&gt;[Container: PostgreSQL]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Almacena catálogos, tarifas,&lt;br&gt;factores técnicos, agentes,&lt;br&gt;suscriptores y folios.&lt;br&gt;Puerto: 5433" style="shape=cylinder3;size=15;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#006EAF;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1290" y="655" width="260" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel1" value="Usa la aplicación&lt;br&gt;[HTTPS]" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;strokeColor=#555555;fontColor=#333333;fontSize=10;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="4" target="2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel2" value="Llamadas REST&lt;br&gt;[HTTPS, JSON]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;strokeColor=#555555;fontColor=#333333;fontSize=10;exitPerimeter=0;" parent="1" source="2" target="backquote" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel3" value="Consulta catálogos,&lt;br&gt;tarifas y folios&lt;br&gt;[HTTP, JSON]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;strokeColor=#555555;fontColor=#333333;fontSize=10;" parent="1" source="backquote" target="backcore" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel4" value="Lee y escribe&lt;br&gt;cotizaciones [JPA/SQL]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;strokeColor=#555555;fontColor=#333333;fontSize=10;" parent="1" source="backquote" target="dbquote" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel5" value="Lee catálogos&lt;br&gt;y tarifas [JPA/SQL]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;strokeColor=#555555;fontColor=#333333;fontSize=10;" parent="1" source="backcore" target="dbcore" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <object placeholders="1" c4Name="Insurance Quoter Front" c4Type="Container" c4Technology="Angular 19 SPA" c4Description="SPA que permite capturar datos&#xa;de cotización, visualizar resultados&#xa;y gestionar ubicaciones." label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%:&amp;nbsp;%c4Technology%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#E6E6E6&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="2">
+                    <mxCell style="shape=mxgraph.c4.webBrowserContainer2;whiteSpace=wrap;html=1;boundedLbl=1;rounded=0;labelBackgroundColor=none;strokeColor=#118ACD;fillColor=#23A2D9;strokeColor=#118ACD;strokeColor2=#0E7DAD;fontSize=12;fontColor=#ffffff;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.5,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];resizable=0;" parent="1" vertex="1">
+                        <mxGeometry x="370" y="375" width="240" height="160" as="geometry"/>
+                    </mxCell>
+                </object>
+                <mxCell id="3" value="Backend" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#0B4884;strokeWidth=2;verticalAlign=top;fontSize=15;fontStyle=1;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="730" y="250" width="850" height="670" as="geometry"/>
+                </mxCell>
+                <object placeholders="1" c4Name="Agente de Seguros" c4Type="Person" c4Description="Crea y gestiona&#xa;cotizaciones de&#xa;seguros de daños." label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="4">
+                    <mxCell style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#083F75;strokeColor=#06315C;fontColor=#ffffff;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=0;" parent="1" vertex="1">
+                        <mxGeometry x="20" y="320" width="200" height="180" as="geometry"/>
+                    </mxCell>
+                </object>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

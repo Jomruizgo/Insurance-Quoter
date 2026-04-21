@@ -1,0 +1,26 @@
+# .gitignore para el repositorio principal (orquestador)
+# Ignora el contenido de .github por ahora (carpetas y archivos sueltos dentro)
+.github/agents/
+.github/docs/
+.github/instructions/
+.github/prompts/
+.github/requirements/
+.github/skills/
+.github/specs/
+.github/copilot-instructions.md
+.github/AGENTS.md
+.github/README.md
+
+# Ignora los submódulos/repositorios de componentes
+Auto_Api_Screenplay/
+Auto_Front_Screenplay/
+Insurance-Quoter-Core/
+Insurance-Quoter-Back/
+Insurance-Quoter-Front/
+# Archivos y carpetas comunes a ignorar
+node_modules/
+.DS_Store
+.idea/
+.vscode/
+.env
+*.log

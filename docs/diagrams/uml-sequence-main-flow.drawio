@@ -1,0 +1,406 @@
+<mxfile host="65bd71144e">
+    <diagram id="seq-main-flow" name="Flujo Principal — Escenario mínimo">
+        <mxGraphModel dx="2624" dy="3308" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2339" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Diagrama de Secuencia UML — Flujo mínimo del cotizador de daños" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="192" y="10" width="1290" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_usr" value="&lt;b&gt;:Usuario&lt;/b&gt;" style="shape=mxgraph.uml.actor;html=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="232" y="50" width="80" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_web" value="&lt;b&gt;cotizador-danos-web&lt;/b&gt;&lt;br&gt;[Angular SPA]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="392" y="50" width="180" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_bck" value="&lt;b&gt;plataforma-danos-back&lt;/b&gt;&lt;br&gt;[Spring Boot :8080]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="612" y="50" width="180" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_cor" value="&lt;b&gt;plataforma-core-ohs&lt;/b&gt;&lt;br&gt;[Spring Boot :8081]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="832" y="50" width="180" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_db4" value="&lt;b&gt;insurance_quoter_db&lt;/b&gt;&lt;br&gt;[PostgreSQL :5432]" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1052" y="45" width="180" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="p_db3" value="&lt;b&gt;insurance_core_db&lt;/b&gt;&lt;br&gt;[PostgreSQL :5433]" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1272" y="45" width="180" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_usr" value="" style="endArrow=none;dashed=1;strokeColor=#999999;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="272" y="105" as="sourcePoint"/>
+                        <mxPoint x="272" y="1850" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ll_web" value="" style="endArrow=none;dashed=1;strokeColor=#6c8ebf;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="90" as="sourcePoint"/>
+                        <mxPoint x="482" y="1850" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ll_bck" value="" style="endArrow=none;dashed=1;strokeColor=#82b366;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="90" as="sourcePoint"/>
+                        <mxPoint x="702" y="1850" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ll_cor" value="" style="endArrow=none;dashed=1;strokeColor=#d6b656;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="922" y="90" as="sourcePoint"/>
+                        <mxPoint x="922" y="1850" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ll_db4" value="" style="endArrow=none;dashed=1;strokeColor=#d79b00;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1142" y="95" as="sourcePoint"/>
+                        <mxPoint x="1142" y="1850" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ll_db3" value="" style="endArrow=none;dashed=1;strokeColor=#9673a6;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1362" y="95" as="sourcePoint"/>
+                        <mxPoint x="1362" y="1850" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec1_bg" value="&lt;b&gt;1. Crear Folio&lt;/b&gt; — Genera número secuencial con idempotencia" style="text;html=1;strokeColor=#1168BD;fillColor=#dae8fc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="192" y="120" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m1" value="Inicia nueva cotización (suscriptor + agente)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="272" y="158" as="sourcePoint"/>
+                        <mxPoint x="482" y="158" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m2" value="POST /v1/folios  {subscriberId: SUB-001, agentCode: AGT-123}" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="185" as="sourcePoint"/>
+                        <mxPoint x="702" y="185" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m3" value="GET /v1/folios  (siguiente número secuencial)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="212" as="sourcePoint"/>
+                        <mxPoint x="922" y="212" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m4" value="nextSequence(year=2026)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="922" y="232" as="sourcePoint"/>
+                        <mxPoint x="1362" y="232" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m4r" value="{folioNumber: FOL-2026-00042}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1362" y="254" as="sourcePoint"/>
+                        <mxPoint x="922" y="254" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m3r" value="{folioNumber: FOL-2026-00042, generatedAt}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="922" y="276" as="sourcePoint"/>
+                        <mxPoint x="702" y="276" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m5" value="INSERT quotes (folioNumber, status=CREATED, subscriberId, agentCode, version=1)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="302" as="sourcePoint"/>
+                        <mxPoint x="1142" y="302" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m5r" value="OK" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1142" y="322" as="sourcePoint"/>
+                        <mxPoint x="702" y="322" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m2r" value="201 {folioNumber: FOL-2026-00042, quoteStatus: CREATED, version: 1}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="350" as="sourcePoint"/>
+                        <mxPoint x="482" y="350" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m1r" value="Redirige a: /quotes/FOL-2026-00042/general-info" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="372" as="sourcePoint"/>
+                        <mxPoint x="272" y="372" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec2_bg" value="&lt;b&gt;2. Capturar Datos Generales&lt;/b&gt; — Asegurado, agente, clasificación de riesgo" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="192" y="398" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m6" value="Completa datos del asegurado, agente y tipo de negocio" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="272" y="436" as="sourcePoint"/>
+                        <mxPoint x="482" y="436" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m7" value="PUT /v1/quotes/{folio}/general-info  {insuredData, underwritingData, version: 1}" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="463" as="sourcePoint"/>
+                        <mxPoint x="702" y="463" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m8" value="UPDATE quotes SET insuredData, underwritingData, updatedAt WHERE folio=..." style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="488" as="sourcePoint"/>
+                        <mxPoint x="1142" y="488" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m8r" value="OK (version incremented)" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1142" y="508" as="sourcePoint"/>
+                        <mxPoint x="702" y="508" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m7r" value="200 {quoteStatus: IN_PROGRESS, version: 2}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="535" as="sourcePoint"/>
+                        <mxPoint x="482" y="535" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec3_bg" value="&lt;b&gt;3. Layout y Registro de Ubicaciones&lt;/b&gt; — Dos ubicaciones: una completa, una incompleta" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="192" y="558" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m9" value="Define layout: 2 ubicaciones (MULTIPLE)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="272" y="596" as="sourcePoint"/>
+                        <mxPoint x="482" y="596" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m10" value="PUT /v1/quotes/{folio}/locations/layout  {numberOfLocations: 2, locationType: MULTIPLE, version: 2}" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="623" as="sourcePoint"/>
+                        <mxPoint x="702" y="623" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m11" value="UPDATE quotes SET layoutConfiguration" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="645" as="sourcePoint"/>
+                        <mxPoint x="1142" y="645" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m11r" value="OK" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1142" y="663" as="sourcePoint"/>
+                        <mxPoint x="702" y="663" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m10r" value="200 {version: 3}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="683" as="sourcePoint"/>
+                        <mxPoint x="482" y="683" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m12" value="Registra ubicación 1 (completa: CP, giro, garantías) y ubicación 2 (sin CP)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="272" y="708" as="sourcePoint"/>
+                        <mxPoint x="482" y="708" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m13" value="PUT /v1/quotes/{folio}/locations  [{loc1: zipCode=06600, businessLine, guarantees}, {loc2: sin zipCode}]  version: 3" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="736" as="sourcePoint"/>
+                        <mxPoint x="702" y="736" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m14" value="GET /v1/zip-codes/06600" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="762" as="sourcePoint"/>
+                        <mxPoint x="922" y="762" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m15" value="SELECT * FROM zip_codes WHERE zip_code=&#39;06600&#39;" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="922" y="782" as="sourcePoint"/>
+                        <mxPoint x="1362" y="782" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m15r" value="{state: CDMX, municipality: Cuauhtémoc, catastrophicZone: ZONE_A, tevZone: TEV-1, fhmZone: FHM-2}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1362" y="804" as="sourcePoint"/>
+                        <mxPoint x="922" y="804" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m14r" value="{zipCode: 06600, valid: true, zonas catastróficas}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="922" y="827" as="sourcePoint"/>
+                        <mxPoint x="702" y="827" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="note_val" value="Valida cada ubicación:&#xa;• Ubic 1: CP ✓ → validationStatus = COMPLETE&#xa;• Ubic 2: sin CP → validationStatus = INCOMPLETE, alert: MISSING_ZIP_CODE" style="text;html=0;strokeColor=#666666;fillColor=#ffffcc;align=left;verticalAlign=top;spacingLeft=6;rounded=1;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="612" y="843" width="320" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="m16" value="INSERT locations + location_guarantees; SET loc1.validationStatus=COMPLETE, loc2.validationStatus=INCOMPLETE" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="908" as="sourcePoint"/>
+                        <mxPoint x="1142" y="908" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m16r" value="OK" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1142" y="928" as="sourcePoint"/>
+                        <mxPoint x="702" y="928" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m13r" value="200 {locations: [{validationStatus: COMPLETE}, {validationStatus: INCOMPLETE, blockingAlerts: [MISSING_ZIP_CODE]}], version: 4}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="955" as="sourcePoint"/>
+                        <mxPoint x="482" y="955" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec4_bg" value="&lt;b&gt;4. Configurar Opciones de Cobertura&lt;/b&gt; — Selección de coberturas, deducibles y coaseguro" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="192" y="978" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m17" value="Selecciona coberturas (Incendio, Robo) y configura deducibles" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="272" y="1015" as="sourcePoint"/>
+                        <mxPoint x="482" y="1015" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m18" value="PUT /v1/quotes/{folio}/coverage-options  [{COV-FIRE: selected, deductible: 2%}, {COV-THEFT: selected, deductible: 5%}]  version: 4" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="1042" as="sourcePoint"/>
+                        <mxPoint x="702" y="1042" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m19" value="UPSERT coverage_options (quote_id, COV-FIRE, COV-THEFT, selected, percentages)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="1066" as="sourcePoint"/>
+                        <mxPoint x="1142" y="1066" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m19r" value="OK" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1142" y="1086" as="sourcePoint"/>
+                        <mxPoint x="702" y="1086" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m18r" value="200 {coverageOptions: [...], version: 5}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="1113" as="sourcePoint"/>
+                        <mxPoint x="482" y="1113" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec5_bg" value="&lt;b&gt;5. Ejecutar Cálculo de Prima&lt;/b&gt; — Prima neta y comercial; alerta para ubicación incompleta" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="192" y="1135" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m20" value="[Clic] Calcular prima" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="272" y="1172" as="sourcePoint"/>
+                        <mxPoint x="482" y="1172" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m21" value="POST /v1/quotes/{folio}/calculate  {version: 5}" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="1200" as="sourcePoint"/>
+                        <mxPoint x="702" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m22" value="SELECT quotes + locations + coverage_options + location_guarantees WHERE folio=..." style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="1225" as="sourcePoint"/>
+                        <mxPoint x="1142" y="1225" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m22r" value="cotización completa (2 ubicaciones, coberturas seleccionadas)" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1142" y="1248" as="sourcePoint"/>
+                        <mxPoint x="702" y="1248" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m23" value="GET /v1/tariffs" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="1275" as="sourcePoint"/>
+                        <mxPoint x="922" y="1275" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m24" value="SELECT tariffs_fire, tariffs_cat, tariffs_fhm, factors_electronic (vigentes)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="922" y="1298" as="sourcePoint"/>
+                        <mxPoint x="1362" y="1298" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m24r" value="tarifas vigentes (fireRate, cattevFactor, catfhmFactor, theftRate, electronicEquipmentRate)" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1362" y="1320" as="sourcePoint"/>
+                        <mxPoint x="922" y="1320" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m23r" value="{fireRate: 0.0015, cattevFactor: 0.0008, catfhmFactor: 0.0005, theftRate: 0.003, electronicEquipmentRate: 0.002}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="922" y="1345" as="sourcePoint"/>
+                        <mxPoint x="702" y="1345" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="note_calc" value="[CalculatePremiumUseCase — lógica interna]&#xa;• Ubic 1: CP válido ✓ | fireKey ✓ | guarantees ✓ → CALCULABLE&#xa;  Prima: incendioEdif + incendioContenidos + extensión + CATTEV + CATFHM&#xa;  + remoción + gastos extra + equipo electrónico + robo = 48,500&#xa;  Prima comercial = 48,500 × factor = 56,260&#xa;• Ubic 2: zip_code ausente → BLOCKING ALERT: MISSING_ZIP_CODE (no se calcula)" style="text;html=0;strokeColor=#b85450;fillColor=#ffe6cc;align=left;verticalAlign=top;spacingLeft=6;rounded=1;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="612" y="1365" width="390" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="m25" value="UPDATE quotes SET netPremium=48500, commercialPremium=56260, status=CALCULATED, version=6, calculatedAt; INSERT premium_breakdown (location_id=1, ...14 componentes)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="1468" as="sourcePoint"/>
+                        <mxPoint x="1142" y="1468" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m25r" value="OK" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1142" y="1493" as="sourcePoint"/>
+                        <mxPoint x="702" y="1493" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m21r" value="200 {CALCULATED, netPremium: 48500, commercialPremium: 56260, premiumsByLocation: [{index:1, calculable:true, netPremium:48500, coverageBreakdown:{...}}, {index:2, calculable:false, blockingAlerts:[MISSING_ZIP_CODE]}], version: 6}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="1523" as="sourcePoint"/>
+                        <mxPoint x="482" y="1523" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m20r" value="Muestra: Prima Neta = $48,500 | Prima Comercial = $56,260 | ⚠ Ubicación 2: Código postal requerido" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="1550" as="sourcePoint"/>
+                        <mxPoint x="272" y="1550" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sec6_bg" value="&lt;b&gt;6. Consultar Estado Final&lt;/b&gt; — Verificación de completitud y quoteStatus" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=middle;spacingLeft=8;rounded=1;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="192" y="1575" width="1360" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="m26" value="Consulta estado final del folio" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="272" y="1612" as="sourcePoint"/>
+                        <mxPoint x="482" y="1612" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m27" value="GET /v1/quotes/{folio}/state" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="1638" as="sourcePoint"/>
+                        <mxPoint x="702" y="1638" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m28" value="SELECT quotes (status, version, updatedAt)" style="endArrow=block;endFill=1;html=1;fontSize=10;align=center;verticalAlign=bottom;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="1660" as="sourcePoint"/>
+                        <mxPoint x="1142" y="1660" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m28r" value="{quoteStatus: CALCULATED, version: 6, updatedAt}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1142" y="1682" as="sourcePoint"/>
+                        <mxPoint x="702" y="1682" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m27r" value="200 {quoteStatus: CALCULATED, completionPercentage: 100, sections: {generalInfo: COMPLETE, layout: COMPLETE, locations: INCOMPLETE, coverageOptions: COMPLETE, calculation: COMPLETE}}" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="702" y="1710" as="sourcePoint"/>
+                        <mxPoint x="482" y="1710" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="m26r" value="Estado: CALCULATED | Sección ubicaciones: INCOMPLETE (1 de 2 sin CP) | Prima calculada disponible" style="endArrow=open;endFill=0;html=1;fontSize=10;align=center;verticalAlign=bottom;dashed=1;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="482" y="1738" as="sourcePoint"/>
+                        <mxPoint x="272" y="1738" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="legend" value="&lt;b&gt;Leyenda:&lt;/b&gt;&lt;br&gt;──────→  Llamada síncrona (request)&lt;br&gt;- - - -→  Respuesta / return&lt;br&gt;📦 Caja amarilla = lógica interna del componente" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=8;spacingRight=8;rounded=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="732" y="1890" width="290" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
