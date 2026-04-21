@@ -1,27 +1,70 @@
 # Guía ASDD — Backend Insurance Quoter
 
-Paso a paso para trabajar el backend del cotizador usando la metodología ASDD con Claude Code.
+Paso a paso para trabajar los backends del cotizador con la metodología ASDD en Claude Code.
 
 **Prerequisito:** tener Claude Code corriendo en la raíz del proyecto (`Sofka-IQ/`).
 
 ---
 
-## Flujo general
+## Microservicios backend
 
-```
-1. Generar spec  →  2. Aprobar spec  →  3. Implementar backend  →  4. Generar tests  →  5. QA
-```
+| Proyecto | Nombre lógico | Puerto | Base de datos | Responsabilidad |
+|----------|--------------|--------|---------------|-----------------|
+| `Insurance-Quoter-Back/` | `plataforma-danos-back` | 8080 | `insurance_quoter_db` (:5432) | Cotizaciones, ubicaciones, coberturas, cálculo de prima |
+| `Insurance-Quoter-Core/` | `plataforma-core-ohs` | 8081 | `insurance_core_db` (:5433) | Catálogos, tarifas, agentes, suscriptores, folios, CP |
 
-Cada feature del backend sigue este flujo. Nunca saltar al paso 3 sin spec aprobada.
+Cada microservicio tiene su propio ciclo ASDD independiente. **No mezclar implementaciones entre proyectos.**
 
 ---
 
-## Features del backend a implementar
+## Flujo ASDD por feature
 
-Basado en los endpoints de `docs/api-contracts.md`, los features son:
+```
+[FASE 1 — Secuencial]
+  /generate-spec <feature>
+  → usuario revisa y aprueba (status: APPROVED)
 
-| # | Feature | Endpoints involucrados |
-|---|---------|----------------------|
+[FASE 2 — Implementación paralela]
+  backend-developer  ∥  database-agent (si hay modelos nuevos)
+
+[FASE 3 — Tests paralelos]
+  test-engineer-backend
+
+[FASE 4 — QA]
+  qa-agent
+  └── /gherkin-case-generator  → test cases funcionales (Gherkin)
+  └── /risk-identifier         → matriz de riesgos ASD
+  └── /performance-analyzer    → si hay SLAs definidos
+```
+
+> **Atajo:** `/asdd-orchestrate <feature>` corre las 4 fases automáticamente.
+> **Nunca saltar Fase 1** — sin spec `APPROVED` no hay implementación.
+
+---
+
+## Fase 1 — Generar y aprobar la spec
+
+### Comando
+```
+/generate-spec <nombre-feature>
+```
+
+### Aprobación
+Cuando `/generate-spec` crea `.claude/specs/<feature>.spec.md`, revisar y cambiar:
+
+```yaml
+status: APPROVED
+updated: 2026-04-XX
+```
+
+---
+
+## Fase 2 — Implementación (por microservicio)
+
+### Insurance-Quoter-Back — features a implementar
+
+| # | Feature | Endpoints |
+|---|---------|-----------|
 | 1 | `folio-management` | POST /v1/folios |
 | 2 | `quote-general-info` | GET/PUT /v1/quotes/{folio}/general-info |
 | 3 | `location-layout` | GET/PUT /v1/quotes/{folio}/locations/layout |
@@ -29,85 +72,116 @@ Basado en los endpoints de `docs/api-contracts.md`, los features son:
 | 5 | `quote-state` | GET /v1/quotes/{folio}/state |
 | 6 | `coverage-options` | GET/PUT /v1/quotes/{folio}/coverage-options |
 | 7 | `premium-calculation` | POST /v1/quotes/{folio}/calculate |
-| 8 | `core-service-stubs` | Catálogos, tarifas, suscriptores, agentes, CP |
 
----
+### Insurance-Quoter-Core — features a implementar
 
-## Paso 1 — Generar la spec
+| # | Feature | Endpoints |
+|---|---------|-----------|
+| 1 | `folio-generator` | GET /v1/folios |
+| 2 | `subscribers-catalog` | GET /v1/subscribers |
+| 3 | `agents-catalog` | GET /v1/agents |
+| 4 | `business-lines-catalog` | GET /v1/business-lines |
+| 5 | `zip-codes` | GET /v1/zip-codes/{zipCode}, POST /v1/zip-codes/validate |
+| 6 | `risk-classification-catalog` | GET /v1/catalogs/risk-classification |
+| 7 | `guarantees-catalog` | GET /v1/catalogs/guarantees |
+| 8 | `tariffs` | GET /v1/tariffs |
 
-### Comando
+### Comando de implementación
 ```
-/generate-spec <nombre-feature>
+/implement-backend <nombre-feature>
 ```
 
-### Prompts por feature
+### Swagger / OpenAPI (obligatorio en todo endpoint nuevo)
+
+Ambos microservicios deben exponer Swagger UI con `springdoc-openapi`. Cada controller debe anotarse:
+
+```java
+@Tag(name = "Folios", description = "Gestión de folios de cotización")
+@RestController
+public class FolioController {
+
+    @Operation(summary = "Crear o recuperar folio")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Folio creado"),
+        @ApiResponse(responseCode = "200", description = "Folio existente recuperado"),
+        @ApiResponse(responseCode = "422", description = "Datos inválidos")
+    })
+    @PostMapping("/v1/folios")
+    public ResponseEntity<FolioResponse> createFolio(...) { ... }
+}
+```
+
+Swagger UI disponible en: `http://localhost:<puerto>/swagger-ui/index.html`
+
+### Prompts de ejemplo por feature (Insurance-Quoter-Back)
 
 #### Feature 1: Gestión de folios
 ```
 /generate-spec folio-management
 
-Contexto: Backend Java 21 + Spring Boot 4 + PostgreSQL.
+Contexto: Insurance-Quoter-Back — Java 21 + Spring Boot 4 + Hexagonal + PostgreSQL.
 Feature: Creación de folios con idempotencia.
 
 Endpoint: POST /v1/folios
 Contrato completo en docs/api-contracts.md, sección 1.
 
 Reglas de negocio:
-- Si ya existe un folio para el mismo subscriberId + agentCode sin cotización iniciada, retornar el existente (HTTP 200) en lugar de crear uno nuevo (HTTP 201).
-- El número de folio se genera llamando al stub GET /v1/folios del core service.
+- Si ya existe un folio para el mismo subscriberId + agentCode sin cotización iniciada,
+  retornar el existente (HTTP 200) en lugar de crear uno nuevo (HTTP 201).
+- El número de folio se genera llamando al core service GET /v1/folios.
 - Validar que subscriberId y agentCode existan en los catálogos del core service.
 
-Entidades JPA involucradas: Quote (tabla: quotes).
-Campos mínimos del aggregate Quote: folioNumber, quoteStatus, subscriberId, agentCode, version, createdAt, updatedAt.
+Entidades JPA (infrastructure/adapter/out/persistence/): QuoteJpa (tabla: quotes).
+Domain model (domain/model/): Quote — sin anotaciones JPA.
+Campos mínimos: folioNumber, quoteStatus, subscriberId, agentCode, version, createdAt, updatedAt.
 ```
 
 #### Feature 2: Datos generales
 ```
 /generate-spec quote-general-info
 
-Contexto: Backend Java 21 + Spring Boot 4 + PostgreSQL.
+Contexto: Insurance-Quoter-Back — Java 21 + Spring Boot 4 + Hexagonal + PostgreSQL.
 Feature: Consulta y actualización de datos generales de una cotización.
 
 Endpoints:
 - GET /v1/quotes/{folio}/general-info
 - PUT /v1/quotes/{folio}/general-info
 
-Contratos completos en docs/api-contracts.md, sección 2.
+Contratos en docs/api-contracts.md, sección 2.
 
 Reglas de negocio:
-- El PUT debe validar versionado optimista (@Version en JPA). Si la versión no coincide, retornar 409.
-- Al actualizar, incrementar version y actualizar updatedAt.
-- Los campos de insuredData y underwritingData se persisten dentro del aggregate Quote.
-- Validar que riskClassification pertenezca al catálogo GET /v1/catalogs/risk-classification.
-
-Entidades JPA: Quote (ampliar con campos de insuredData y underwritingData embebidos o en columnas planas).
+- PUT valida versionado optimista (@Version en QuoteJpa). Si versión no coincide → 409.
+- Al actualizar: incrementar version y actualizar updatedAt.
+- insuredData y underwritingData se persisten dentro del aggregate Quote.
+- Validar que riskClassification pertenezca al catálogo del core service.
 ```
 
 #### Feature 3: Layout de ubicaciones
 ```
 /generate-spec location-layout
 
-Contexto: Backend Java 21 + Spring Boot 4 + PostgreSQL.
+Contexto: Insurance-Quoter-Back — Java 21 + Spring Boot 4 + Hexagonal + PostgreSQL.
 Feature: Configuración del layout de ubicaciones de una cotización.
 
 Endpoints:
 - GET /v1/quotes/{folio}/locations/layout
 - PUT /v1/quotes/{folio}/locations/layout
 
-Contratos completos en docs/api-contracts.md, sección 3.
+Contratos en docs/api-contracts.md, sección 3.
 
 Reglas de negocio:
-- Al guardar el layout, si ya existen ubicaciones y numberOfLocations cambia, ajustar la lista (agregar entradas vacías o marcar excedentes como inactivas — no eliminar datos).
+- Al guardar el layout, si numberOfLocations cambia: agregar entradas vacías o marcar
+  excedentes como inactivas — nunca eliminar datos.
 - Versionado optimista obligatorio en PUT.
 
-Entidades JPA: Quote (campo layoutConfiguration), Location (tabla: locations, relación @ManyToOne con Quote).
+Entidades: QuoteJpa (campo layoutConfiguration), LocationJpa (tabla: locations, FK a quotes).
 ```
 
 #### Feature 4: Gestión de ubicaciones
 ```
 /generate-spec location-management
 
-Contexto: Backend Java 21 + Spring Boot 4 + PostgreSQL.
+Contexto: Insurance-Quoter-Back — Java 21 + Spring Boot 4 + Hexagonal + PostgreSQL.
 Feature: Registro, consulta y edición de ubicaciones dentro de una cotización.
 
 Endpoints:
@@ -116,217 +190,123 @@ Endpoints:
 - PATCH /v1/quotes/{folio}/locations/{index}
 - GET /v1/quotes/{folio}/locations/summary
 
-Contratos completos en docs/api-contracts.md, sección 4.
+Contratos en docs/api-contracts.md, sección 4.
 
 Reglas de negocio:
-- PATCH es actualización parcial: solo se actualizan los campos presentes en el body.
-- Al guardar una ubicación, validar zipCode contra GET /v1/zip-codes/{zipCode} del core service. Si no es válido, registrar alerta bloqueante MISSING_ZIP_CODE y poner validationStatus = INCOMPLETE.
-- Una ubicación sin businessLine.fireKey genera alerta MISSING_FIRE_KEY.
-- Una ubicación sin guarantees tarifables genera alerta NO_TARIFABLE_GUARANTEES.
+- PATCH es actualización parcial: solo se actualizan campos presentes en el body.
+- Validar zipCode contra el core service. Si inválido → alerta MISSING_ZIP_CODE + validationStatus = INCOMPLETE.
+- Sin businessLine.fireKey → alerta MISSING_FIRE_KEY.
+- Sin guarantees tarifables → alerta NO_TARIFABLE_GUARANTEES.
 - blockingAlerts se recalcula en cada escritura.
-- El GET /locations/summary no carga el detalle completo de ubicaciones, solo index, locationName, validationStatus y blockingAlerts.
+- GET /summary devuelve solo index, locationName, validationStatus y blockingAlerts.
 
-Entidades JPA: Location (tabla: locations), BlockingAlert (embeddable o tabla: location_alerts).
-Relación: Location @ManyToOne Quote, BlockingAlert @ElementCollection en Location.
+Entidades: LocationJpa (tabla: locations), BlockingAlertJpa (@ElementCollection en LocationJpa).
 ```
 
 #### Feature 5: Estado de cotización
 ```
 /generate-spec quote-state
 
-Contexto: Backend Java 21 + Spring Boot 4 + PostgreSQL.
+Contexto: Insurance-Quoter-Back — Java 21 + Spring Boot 4 + Hexagonal + PostgreSQL.
 Feature: Consulta del estado y progreso de completitud de una cotización.
 
 Endpoint: GET /v1/quotes/{folio}/state
-
-Contrato completo en docs/api-contracts.md, sección 5.
+Contrato en docs/api-contracts.md, sección 5.
 
 Reglas de negocio:
-- completionPercentage se calcula en el servicio (no se persiste): es el porcentaje de secciones en estado COMPLETE.
-- Secciones: generalInfo, layout, locations, coverageOptions, calculation.
+- completionPercentage se calcula en el use case (no se persiste).
+- Secciones evaluadas: generalInfo, layout, locations, coverageOptions, calculation.
 - Una sección está COMPLETE si todos sus campos obligatorios están llenos y sin alertas bloqueantes.
-- quoteStatus posibles: CREATED, IN_PROGRESS, CALCULATED, ISSUED.
+- quoteStatus: CREATED | IN_PROGRESS | CALCULATED | ISSUED.
 
-Sin nuevas entidades JPA: se lee del aggregate Quote y sus relaciones.
+Sin entidades nuevas: se lee del aggregate Quote y sus relaciones.
 ```
 
 #### Feature 6: Opciones de cobertura
 ```
 /generate-spec coverage-options
 
-Contexto: Backend Java 21 + Spring Boot 4 + PostgreSQL.
+Contexto: Insurance-Quoter-Back — Java 21 + Spring Boot 4 + Hexagonal + PostgreSQL.
 Feature: Consulta y configuración de opciones de cobertura para una cotización.
 
 Endpoints:
 - GET /v1/quotes/{folio}/coverage-options
 - PUT /v1/quotes/{folio}/coverage-options
 
-Contratos completos en docs/api-contracts.md, sección 6.
+Contratos en docs/api-contracts.md, sección 6.
 
 Reglas de negocio:
-- Las coberturas disponibles vienen del catálogo GET /v1/catalogs/guarantees del core service.
-- Solo se pueden seleccionar coberturas que existan en el catálogo.
-- deductiblePercentage y coinsurancePercentage tienen rangos válidos (0-100).
+- Las coberturas disponibles vienen del catálogo del core service GET /v1/catalogs/guarantees.
+- Solo se pueden seleccionar coberturas del catálogo.
+- deductiblePercentage y coinsurancePercentage: rango 0-100.
 - Versionado optimista obligatorio en PUT.
 
-Entidades JPA: CoverageOption (tabla: coverage_options), relación @ManyToOne con Quote.
+Entidades: CoverageOptionJpa (tabla: coverage_options, FK a quotes).
 ```
 
 #### Feature 7: Cálculo de prima
 ```
 /generate-spec premium-calculation
 
-Contexto: Backend Java 21 + Spring Boot 4 + PostgreSQL.
-Feature: Cálculo de prima neta y prima comercial para todas las ubicaciones calculables.
+Contexto: Insurance-Quoter-Back — Java 21 + Spring Boot 4 + Hexagonal + PostgreSQL.
+Feature: Cálculo de prima neta y comercial para todas las ubicaciones calculables.
 
 Endpoint: POST /v1/quotes/{folio}/calculate
-
-Contrato completo en docs/api-contracts.md, sección 7.
+Contrato en docs/api-contracts.md, sección 7.
 
 Reglas de negocio:
-- Leer cotización completa por folio (Quote + Locations + CoverageOptions).
-- Leer tarifas y factores técnicos desde GET /v1/tariffs del core service.
-- Por cada ubicación: determinar si es calculable (tiene zipCode válido, businessLine.fireKey y al menos una garantía tarifable).
-- Si una ubicación no es calculable: registrar alerta, no calcular, continuar con las demás.
-- Si NINGUNA ubicación es calculable: retornar HTTP 422 con código NO_CALCULABLE_LOCATIONS.
-- Calcular prima por ubicación con los componentes del desglose (ver docs/api-contracts.md sección 7).
-- Consolidar netPremium total = suma de netPremium de ubicaciones calculables.
+- Leer cotización completa: Quote + Locations + CoverageOptions.
+- Leer tarifas y factores técnicos desde el core service GET /v1/tariffs.
+- Por cada ubicación: determinar si es calculable (zipCode válido + fireKey + garantía tarifable).
+- Si una ubicación no es calculable: registrar alerta, continuar con las demás.
+- Si NINGUNA ubicación es calculable → HTTP 422 con código NO_CALCULABLE_LOCATIONS.
+- Calcular netPremium por ubicación (desglose en docs/api-contracts.md sección 7).
+- netPremium total = suma de ubicaciones calculables.
 - commercialPremium = netPremium * factor comercial (de tarifas).
-- Persistir resultado en una sola transacción: actualizar Quote con quoteStatus = CALCULATED, netPremium, commercialPremium y guardar PremiumByLocation[].
-- No sobrescribir otras secciones de la cotización en este paso.
+- Persistir en transacción única: Quote.quoteStatus = CALCULATED + CalculationResultJpa + PremiumByLocationJpa[].
 - Versionado optimista obligatorio.
 
-Entidades JPA nuevas: CalculationResult (tabla: calculation_results), PremiumByLocation (tabla: premiums_by_location).
-Relación: CalculationResult @OneToOne Quote, PremiumByLocation @ManyToOne CalculationResult.
+Entidades: CalculationResultJpa (tabla: calculation_results, @OneToOne QuoteJpa),
+           PremiumByLocationJpa (tabla: premiums_by_location, @ManyToOne CalculationResultJpa).
 
-IMPORTANTE: La lógica de cálculo debe estar en CalculationService, totalmente separada del controller. Debe ser 100% testeable con TDD.
-```
-
-#### Feature 8: Stubs del core service
-```
-/generate-spec core-service-stubs
-
-Contexto: Backend Java 21 + Spring Boot 4 + PostgreSQL.
-Feature: Implementación de stubs del servicio core para catálogos y tarifas.
-
-Endpoints a implementar como datos en memoria o fixtures JSON:
-- GET /v1/subscribers
-- GET /v1/agents
-- GET /v1/business-lines
-- GET /v1/zip-codes/{zipCode}
-- POST /v1/zip-codes/validate
-- GET /v1/folios (generador secuencial)
-- GET /v1/catalogs/risk-classification
-- GET /v1/catalogs/guarantees
-- GET /v1/tariffs
-
-Contratos completos en docs/api-contracts.md, sección 8.
-
-Estrategia: implementar como un CoreServiceClient (interfaz) con una implementación stub que lee datos de archivos JSON en src/main/resources/fixtures/. Esto permite reemplazarla por un cliente HTTP real sin cambiar los servicios que la consumen.
-
-No se requiere base de datos para estos endpoints: datos estáticos en fixtures.
+IMPORTANTE: lógica de cálculo en CalculationService (domain), 100% TDD. Cada componente
+del desglose tiene su propio método privado y su propio test.
 ```
 
 ---
 
-## Paso 2 — Aprobar la spec
+## Fase 3 — Tests de integración
 
-Después de que `/generate-spec` crea el archivo en `.claude/specs/<feature>.spec.md`, revisarlo y cambiar el status:
+Ejecutado automáticamente en el flujo ASDD después de la Fase 2. Para invocación manual:
 
-```yaml
-# En .claude/specs/<feature>.spec.md
-status: APPROVED
-updated: 2026-04-20
+```
+@test-engineer-backend ejecuta auditoría de tests para <feature>
 ```
 
-**No continuar al paso 3 sin este cambio.**
+Genera:
+- Tests `@DataJpaTest` para repositories con queries custom
+- Tests `@SpringBootTest` para flujos de integración completos
+- Reporte de cobertura — quality gate: **≥ 80% en lógica de negocio**
 
 ---
 
-## Paso 3 — Implementar el backend
-
-### Comando
-```
-/implement-backend <nombre-feature>
-```
-
-### Prompts por feature
-
-#### Cualquier feature backend
-```
-/implement-backend <nombre-feature>
-
-Spec aprobada: .claude/specs/<nombre-feature>.spec.md
-Contratos de referencia: docs/api-contracts.md
-Stack: Java 21 + Spring Boot 4 + Spring Data JPA + PostgreSQL + Lombok
-
-Estructura de paquetes:
-  com.sofka.insurancequoter.<feature>.controller
-  com.sofka.insurancequoter.<feature>.service
-  com.sofka.insurancequoter.<feature>.repository
-  com.sofka.insurancequoter.<feature>.domain
-  com.sofka.insurancequoter.<feature>.dto
-
-Aplicar TDD: escribir los tests unitarios del service ANTES de la implementación.
-Aplicar reglas de .claude/rules/backend.md y .claude/rules/database.md.
-```
-
-#### Para el feature de cálculo (más complejo)
-```
-/implement-backend premium-calculation
-
-Spec aprobada: .claude/specs/premium-calculation.spec.md
-Contratos de referencia: docs/api-contracts.md sección 7
-
-Prioridad de implementación:
-1. Primero los tests de CalculationService (TDD — RED)
-2. Implementar CalculationService hasta pasar todos los tests (GREEN)
-3. Implementar CalculationController
-4. Implementar PremiumByLocation persistencia
-
-La lógica de cálculo debe estar completamente en CalculationService.
-El controller solo delega y mapea DTO.
-Cada componente del desglose (fireBuildings, fireContents, cattev, etc.) debe tener su propio método privado testeable.
-```
-
----
-
-## Paso 4 — Generar los tests
-
-### Comando
-```
-/unit-testing <nombre-feature>
-```
-
-### Prompt genérico
-```
-/unit-testing <nombre-feature>
-
-Spec: .claude/specs/<nombre-feature>.spec.md
-Implementación completada en: Insurance-Quoter-Back/src/main/java/com/sofka/insurancequoter/<feature>/
-
-Generar:
-- Tests unitarios del Service con Mockito (happy path, error path, edge cases)
-- Tests del Controller con @WebMvcTest (status HTTP, body de response)
-- Tests del Repository con @DataJpaTest si hay queries custom
-
-Cobertura mínima: 80% en lógica de negocio.
-Framework: JUnit 5 + Mockito + Spring Boot Test.
-Metodología: AAA (Arrange-Act-Assert).
-```
-
----
-
-## Paso 5 — QA y casos Gherkin
+## Fase 4 — QA y generación de test plan
 
 ```
-@qa-agent ejecuta QA para .claude/specs/<nombre-feature>.spec.md
-
-Generar:
-1. Casos Gherkin para flujos críticos del feature
-2. Matriz de riesgos ASD (Alto/Medio/Bajo)
-3. Propuesta de flujos a automatizar con Serenity BDD en Auto_Api_Screenplay/
+@qa-agent ejecuta QA para .claude/specs/<feature>.spec.md
 ```
+
+### Qué se genera
+
+| Artefacto | Skill | Ubicación |
+|-----------|-------|-----------|
+| Test cases funcionales (Gherkin) | `/gherkin-case-generator` | `docs/output/qa/<feature>-gherkin.md` |
+| Matriz de riesgos ASD | `/risk-identifier` | `docs/output/qa/<feature>-risks.md` |
+| Plan de performance | `/performance-analyzer` | `docs/output/qa/<feature>-performance.md` (solo si hay SLAs) |
+| Propuesta de automatización | `/automation-flow-proposer` | `docs/output/qa/automation-proposal.md` (bajo pedido) |
+
+### Cuándo se generan los test cases
+Los **test cases funcionales** (escenarios Gherkin) se producen en esta fase, **después** de que la implementación y los tests unitarios/integración están completos. Son la base para las pruebas automatizadas en `Auto_Api_Screenplay/`.
 
 ---
 
@@ -335,14 +315,21 @@ Generar:
 Respetar dependencias entre features:
 
 ```
-1. core-service-stubs        ← base para todo (catálogos y tarifas)
-2. folio-management          ← entry point del flujo
-3. quote-general-info        ← depende de folio
-4. location-layout           ← depende de folio
-5. location-management       ← depende de layout
-6. quote-state               ← depende de todas las secciones
-7. coverage-options          ← depende de catálogos de garantías
-8. premium-calculation       ← depende de todo lo anterior
+Insurance-Quoter-Core (primero — lo consume el Back):
+  1. folio-generator
+  2. subscribers-catalog + agents-catalog
+  3. business-lines-catalog + zip-codes
+  4. risk-classification-catalog + guarantees-catalog
+  5. tariffs
+
+Insurance-Quoter-Back (después — consume el Core):
+  6. folio-management          ← entry point del flujo
+  7. quote-general-info        ← depende de folio
+  8. location-layout           ← depende de folio
+  9. location-management       ← depende de layout
+ 10. quote-state               ← depende de todas las secciones
+ 11. coverage-options          ← depende de catálogos de garantías
+ 12. premium-calculation       ← depende de todo lo anterior
 ```
 
 ---
@@ -352,18 +339,21 @@ Respetar dependencias entre features:
 | Qué hacer | Comando |
 |-----------|---------|
 | Generar spec | `/generate-spec <feature>` |
-| Ver estado del flujo | `/asdd-orchestrate` |
 | Implementar backend | `/implement-backend <feature>` |
-| Generar tests | `/unit-testing <feature>` |
-| Generar casos Gherkin | `/gherkin-case-generator <feature>` |
+| Auditar tests | `@test-engineer-backend` |
+| Generar test plan (Gherkin) | `/gherkin-case-generator <feature>` |
 | Identificar riesgos | `/risk-identifier <feature>` |
-| Orquestar todo | `/asdd-orchestrate <feature>` |
+| QA completo (Fase 4) | `@qa-agent` |
+| Orquestar flujo completo | `/asdd-orchestrate <feature>` |
+| Ver estado del flujo | `/asdd-orchestrate status` |
+| Crear issues en GitHub | `/tasks-to-issues <feature>` |
 
 ---
 
 ## Notas importantes
 
-- **Los tests van antes del código** — TDD es obligatorio en la capa de service.
-- **Los contratos son la fuente de verdad** — si hay duda entre la spec y `docs/api-contracts.md`, prevalece el contrato.
-- **Los stubs del core service deben implementarse primero** — todos los demás features los consumen.
-- **El cálculo de prima no es un número mágico** — cada componente del desglose debe tener un método y un test.
+- **Core primero** — todos los features del Back consumen endpoints del Core; implementar el Core antes.
+- **TDD es obligatorio** — el test del use case se escribe antes que el código de producción.
+- **Los contratos son la fuente de verdad** — si hay divergencia entre spec y `docs/api-contracts.md`, prevalece el contrato.
+- **Swagger en cada endpoint** — anotar con `@Operation` y `@ApiResponse` al implementar el controller.
+- **GitFlow** — cada feature en su propia rama `feature/<ticket>-<nombre>` desde `develop`.
