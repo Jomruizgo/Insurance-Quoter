@@ -1,0 +1,9 @@
+[submodule "Insurance-Quoter-Back"]
+	path = Insurance-Quoter-Back
+	url = https://github.com/Jomruizgo/Insurance-Quoter-Back.git
+[submodule "Insurance-Quoter-Core"]
+	path = Insurance-Quoter-Core
+	url = https://github.com/Jomruizgo/Insurance-Quoter-Core.git
+[submodule "Insurance-Quoter-Front"]
+	path = Insurance-Quoter-Front
+	url = https://github.com/Jomruizgo/Insurance-Quoter-Front.git
