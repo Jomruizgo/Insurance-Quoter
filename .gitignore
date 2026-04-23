@@ -11,9 +11,12 @@
 .github/AGENTS.md
 .github/README.md
 
-# Automation repos (not submodules yet)
+# Repos independientes — se clonan localmente para desarrollo pero no pertenecen a este repo
 Auto_Api_Screenplay/
 Auto_Front_Screenplay/
+Insurance-Quoter-Back/
+Insurance-Quoter-Core/
+Insurance-Quoter-Front/
 # Archivos y carpetas comunes a ignorar
 node_modules/
 .DS_Store

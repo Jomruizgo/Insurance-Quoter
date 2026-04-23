@@ -1,6 +1,8 @@
 # Sofka Insurance Quoter
 
-Repositorio orquestador del cotizador de seguros de daños. Contiene la configuración de integración (`docker-compose.yml`), la documentación compartida del sistema y los tres servicios como submódulos de git.
+Repositorio orquestador del cotizador de seguros de daños. Contiene la configuración de integración (`docker-compose.yml`), los Dockerfiles de cada servicio y la documentación compartida del sistema.
+
+Cada servicio vive en su propio repositorio independiente y se clona automáticamente durante el build de Docker — no es necesario clonarlos manualmente.
 
 ## Repositorios
 
@@ -12,28 +14,25 @@ Repositorio orquestador del cotizador de seguros de daños. Contiene la configur
 
 ## Levantar el stack completo
 
-### 1. Clonar el repositorio
+### Requisitos previos
 
-Los tres servicios son submódulos de git. Con un solo comando se clona este repo y todos sus submódulos:
+- Docker y Docker Compose
+- Acceso a internet (Docker clona los repos durante el build)
+
+### 1. Clonar este repositorio
 
 ```bash
-git clone --recurse-submodules https://github.com/Jomruizgo/Insurance-Quoter.git
+git clone https://github.com/Jomruizgo/Insurance-Quoter.git
 cd Insurance-Quoter
 ```
 
-> Si ya clonaste el repo sin `--recurse-submodules`, ejecuta:
-> ```bash
-> git submodule update --init --recursive
-> ```
-
 ### 2. Variables de entorno
 
-Copiar y completar las variables de cada servicio:
-
 ```bash
-cp Insurance-Quoter-Back/.env.example  Insurance-Quoter-Back/.env
-cp Insurance-Quoter-Core/.env.example  Insurance-Quoter-Core/.env
+cp .env.example .env
 ```
+
+Editar `.env` y reemplazar los valores `change_me` con credenciales reales para las bases de datos.
 
 ### 3. Iniciar
 
@@ -41,7 +40,9 @@ cp Insurance-Quoter-Core/.env.example  Insurance-Quoter-Core/.env
 docker compose up -d
 ```
 
-El frontend queda disponible en `http://localhost:4200`.
+Docker construye las imágenes clonando cada repo desde GitHub, compila el código y levanta todos los contenedores. El frontend queda disponible en `http://localhost:4200`.
+
+> En el primer `up` la construcción toma varios minutos (clona + compila 2 backends Java y 1 frontend Angular). Las ejecuciones siguientes usan el caché de Docker y son inmediatas.
 
 ### Detener
 
@@ -49,14 +50,11 @@ El frontend queda disponible en `http://localhost:4200`.
 docker compose down
 ```
 
----
-
-## Mantener los submódulos actualizados
-
-Para traer los últimos cambios de los tres servicios:
+### Reconstruir con el código más reciente
 
 ```bash
-git submodule update --remote --merge
+docker compose build --no-cache
+docker compose up -d
 ```
 
 ---

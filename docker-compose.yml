@@ -7,8 +7,10 @@ services:
   # --- PostgreSQL for plataforma-danos-back (:5432) ---
   db-back:
     image: postgres:16
-    env_file:
-      - ./Insurance-Quoter-Back/.env
+    environment:
+      POSTGRES_DB: ${BACK_DB_NAME}
+      POSTGRES_USER: ${BACK_DB_USER}
+      POSTGRES_PASSWORD: ${BACK_DB_PASSWORD}
     ports:
       - "5432:5432"
     networks:
@@ -22,8 +24,10 @@ services:
   # --- PostgreSQL for plataforma-core-ohs (:5433) ---
   db-core:
     image: postgres:16
-    env_file:
-      - ./Insurance-Quoter-Core/.env
+    environment:
+      POSTGRES_DB: ${CORE_DB_NAME}
+      POSTGRES_USER: ${CORE_DB_USER}
+      POSTGRES_PASSWORD: ${CORE_DB_PASSWORD}
     ports:
       - "5433:5432"
     networks:
@@ -37,15 +41,16 @@ services:
   # --- Backend core (plataforma-core-ohs) — port 8081 ---
   core:
     build:
-      context: ./Insurance-Quoter-Core
+      context: .
+      dockerfile: Dockerfile.core
     ports:
       - "8081:8081"
     networks:
       - sofka-net
-    env_file:
-      - ./Insurance-Quoter-Core/.env
     environment:
-      - DB_URL=${CORE_DB_URL}
+      DB_URL: ${CORE_DB_URL}
+      DB_USERNAME: ${CORE_DB_USER}
+      DB_PASSWORD: ${CORE_DB_PASSWORD}
     depends_on:
       db-core:
         condition: service_healthy
@@ -59,17 +64,19 @@ services:
   # --- Backend quoter (plataforma-danos-back) — port 8080 ---
   backend:
     build:
-      context: ./Insurance-Quoter-Back
+      context: .
+      dockerfile: Dockerfile.back
     ports:
       - "8080:8080"
     networks:
       - sofka-net
-    env_file:
-      - ./Insurance-Quoter-Back/.env
     environment:
-      - DB_HOST=${BACK_DB_HOST}
-      - DB_PORT=${BACK_DB_PORT}
-      - CORE_SERVICE_BASE_URL=${CORE_SERVICE_BASE_URL}
+      DB_HOST: ${BACK_DB_HOST}
+      DB_PORT: ${BACK_DB_PORT}
+      DB_NAME: ${BACK_DB_NAME}
+      DB_USERNAME: ${BACK_DB_USER}
+      DB_PASSWORD: ${BACK_DB_PASSWORD}
+      CORE_SERVICE_BASE_URL: ${CORE_SERVICE_BASE_URL}
     depends_on:
       db-back:
         condition: service_healthy
@@ -85,8 +92,8 @@ services:
   # --- Frontend production (nginx + reverse proxy to backend/core) ---
   frontend:
     build:
-      context: ./Insurance-Quoter-Front
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: Dockerfile.front
     ports:
       - "4200:80"
     networks:
@@ -96,15 +103,3 @@ services:
         condition: service_healthy
       core:
         condition: service_healthy
-
-  # --- Frontend development (ng serve — use localhost:8080/8081 defaults) ---
-  frontend-dev:
-    build:
-      context: ./Insurance-Quoter-Front
-      dockerfile: Dockerfile.dev
-    ports:
-      - "4201:4200"
-    volumes:
-      - ./Insurance-Quoter-Front/src:/app/src:delegated
-    networks:
-      - sofka-net
