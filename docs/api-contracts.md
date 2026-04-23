@@ -594,7 +594,9 @@ Genera el siguiente número de folio secuencial.
 ```
 
 ### GET /v1/tariffs
-Retorna los factores técnicos y tarifas para el cálculo.
+Retorna los factores técnicos y tarifas vigentes para el cálculo de prima.
+
+**Response 200:**
 ```json
 {
   "tariffs": {
@@ -606,6 +608,40 @@ Retorna los factores técnicos y tarifas para el cálculo.
   }
 }
 ```
+
+**Response 404:** `{ "error": "Tariffs not found" }`
+
+---
+
+### PUT /v1/tariffs
+Actualiza los factores técnicos vigentes. Todos los campos son obligatorios y deben ser mayores que cero.
+
+**Request body:**
+```json
+{
+  "fireRate": 0.002,
+  "cattevFactor": 0.001,
+  "catfhmFactor": 0.0007,
+  "theftRate": 0.004,
+  "electronicEquipmentRate": 0.003
+}
+```
+
+**Response 200:**
+```json
+{
+  "tariffs": {
+    "fireRate": 0.002,
+    "cattevFactor": 0.001,
+    "catfhmFactor": 0.0007,
+    "theftRate": 0.004,
+    "electronicEquipmentRate": 0.003
+  }
+}
+```
+
+**Response 400:** Algún campo es ≤ 0.  
+**Response 404:** `{ "error": "Tariffs not found" }`
 
 ---
 
