@@ -1,6 +1,6 @@
 # Sofka Insurance Quoter
 
-Repositorio orquestador del cotizador de seguros de daños. Agrupa la configuración de integración (`docker-compose.yml`) y la documentación compartida del sistema. Cada servicio vive en su propio repositorio independiente.
+Repositorio orquestador del cotizador de seguros de daños. Contiene la configuración de integración (`docker-compose.yml`), la documentación compartida del sistema y los tres servicios como submódulos de git.
 
 ## Repositorios
 
@@ -12,29 +12,30 @@ Repositorio orquestador del cotizador de seguros de daños. Agrupa la configurac
 
 ## Levantar el stack completo
 
-### Requisitos previos
+### 1. Clonar el repositorio
 
-- Docker y Docker Compose
-- Clonar los tres repos dentro de este directorio:
-
-```bash
-git clone https://github.com/Jomruizgo/Insurance-Quoter-Back.git
-git clone https://github.com/Jomruizgo/Insurance-Quoter-Core.git
-git clone https://github.com/Jomruizgo/Insurance-Quoter-Front.git
-```
-
-### Variables de entorno
-
-1. Copiar el `.env.example` raíz y completar con las credenciales de cada backend:
+Los tres servicios son submódulos de git. Con un solo comando se clona este repo y todos sus submódulos:
 
 ```bash
-cp .env.example .env
+git clone --recurse-submodules https://github.com/Jomruizgo/Insurance-Quoter.git
+cd Insurance-Quoter
 ```
 
-2. En `Insurance-Quoter-Back/`, copiar `.env.example` → `.env` y rellenar las credenciales.
-3. En `Insurance-Quoter-Core/`, copiar `.env.example` → `.env` y rellenar las credenciales.
+> Si ya clonaste el repo sin `--recurse-submodules`, ejecuta:
+> ```bash
+> git submodule update --init --recursive
+> ```
 
-### Iniciar
+### 2. Variables de entorno
+
+Copiar y completar las variables de cada servicio:
+
+```bash
+cp Insurance-Quoter-Back/.env.example  Insurance-Quoter-Back/.env
+cp Insurance-Quoter-Core/.env.example  Insurance-Quoter-Core/.env
+```
+
+### 3. Iniciar
 
 ```bash
 docker compose up -d
@@ -47,6 +48,18 @@ El frontend queda disponible en `http://localhost:4200`.
 ```bash
 docker compose down
 ```
+
+---
+
+## Mantener los submódulos actualizados
+
+Para traer los últimos cambios de los tres servicios:
+
+```bash
+git submodule update --remote --merge
+```
+
+---
 
 ## Arquitectura
 
