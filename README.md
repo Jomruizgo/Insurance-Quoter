@@ -1,6 +1,6 @@
 # Sofka Insurance Quoter
 
-Monorepo orquestador del cotizador de seguros de daños. Contiene la configuración de integración (`docker-compose.yml`) y la documentación compartida del sistema.
+Repositorio orquestador del cotizador de seguros de daños. Agrupa la configuración de integración (`docker-compose.yml`) y la documentación compartida del sistema. Cada servicio vive en su propio repositorio independiente.
 
 ## Repositorios
 
