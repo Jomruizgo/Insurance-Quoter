@@ -11,6 +11,7 @@ Cada servicio vive en su propio repositorio independiente y se clona automática
 | Frontend (Angular 19) | https://github.com/Jomruizgo/Insurance-Quoter-Front | 4200 |
 | Backend quoter | https://github.com/Jomruizgo/Insurance-Quoter-Back | 8080 |
 | Backend core / catálogos | https://github.com/Jomruizgo/Insurance-Quoter-Core | 8081 |
+| Pruebas automatizadas UI (Serenity BDD) | https://github.com/Jomruizgo/Insurance_Quoter_Auto_Front_Screenplay | — |
 
 ## Levantar el stack completo
 
