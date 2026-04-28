@@ -12,8 +12,8 @@
 .github/README.md
 
 # Repos independientes — se clonan localmente para desarrollo pero no pertenecen a este repo
-Auto_Api_Screenplay/
-Auto_Front_Screenplay/
+Insurance_Quoter_Auto_Api_Screenplay/
+Insurance_Quoter_Auto_Front_Screenplay/
 Insurance-Quoter-Back/
 Insurance-Quoter-Core/
 Insurance-Quoter-Front/

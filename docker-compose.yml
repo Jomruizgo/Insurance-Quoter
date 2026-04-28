@@ -38,6 +38,52 @@ services:
       timeout: 3s
       retries: 10
 
+  # --- Jaeger all-in-one — OTLP traces (gRPC :4317, HTTP :4318) + UI :16686 ---
+  jaeger:
+    image: jaegertracing/all-in-one:1.57
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - sofka-net
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:16686 > /dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --- Prometheus — scrapes /actuator/prometheus from both backends ---
+  prometheus:
+    image: prom/prometheus:v2.51.2
+    ports:
+      - "9090:9090"
+    networks:
+      - sofka-net
+    volumes:
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - backend
+      - core
+
+  # --- Grafana — dashboards :3000 ---
+  grafana:
+    image: grafana/grafana:10.4.2
+    ports:
+      - "3000:3000"
+    networks:
+      - sofka-net
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+    volumes:
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      - prometheus
+      - jaeger
+
   # --- Backend core (plataforma-core-ohs) — port 8081 ---
   core:
     build:
@@ -51,8 +97,11 @@ services:
       DB_URL: ${CORE_DB_URL}
       DB_USERNAME: ${CORE_DB_USER}
       DB_PASSWORD: ${CORE_DB_PASSWORD}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT}
     depends_on:
       db-core:
+        condition: service_healthy
+      jaeger:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:8081/v3/api-docs > /dev/null || exit 1"]
@@ -77,10 +126,13 @@ services:
       DB_USERNAME: ${BACK_DB_USER}
       DB_PASSWORD: ${BACK_DB_PASSWORD}
       CORE_SERVICE_BASE_URL: ${CORE_SERVICE_BASE_URL}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT}
     depends_on:
       db-back:
         condition: service_healthy
       core:
+        condition: service_healthy
+      jaeger:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:8080/v3/api-docs > /dev/null || exit 1"]

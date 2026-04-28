@@ -13,6 +13,18 @@ Cada servicio vive en su propio repositorio independiente y se clona automática
 | Backend core / catálogos | https://github.com/Jomruizgo/Insurance-Quoter-Core | 8081 |
 | Pruebas automatizadas UI (Serenity BDD) | https://github.com/Jomruizgo/Insurance_Quoter_Auto_Front_Screenplay | — |
 
+## Observabilidad
+
+El stack incluye tres herramientas de observabilidad que se levantan automáticamente con `docker compose up`:
+
+| Herramienta | URL | Descripción |
+|-------------|-----|-------------|
+| Grafana | http://localhost:3000 | Dashboards de métricas. Usuario y contraseña en `.env` (`GRAFANA_ADMIN_USER` / `GRAFANA_ADMIN_PASSWORD`) |
+| Prometheus | http://localhost:9090 | Recolección de métricas desde `/actuator/prometheus` de ambos backends |
+| Jaeger | http://localhost:16686 | Trazas distribuidas OTLP de ambos backends |
+
+Los backends envían trazas al endpoint configurado en `OTEL_EXPORTER_OTLP_ENDPOINT` (`.env`). En Docker apunta a `http://jaeger:4318` (HTTP OTLP). En desarrollo local se puede apuntar a `http://localhost:4318` si se levanta Jaeger por separado.
+
 ## Levantar el stack completo
 
 ### Requisitos previos
