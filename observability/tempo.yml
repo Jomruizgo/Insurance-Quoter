@@ -24,9 +24,9 @@ metrics_generator:
       cluster: insurance-quoter
   storage:
     path: /var/tempo/generator/wal
-  processors:
-    - service-graphs
-    - span-metrics
+    remote_write:
+      - url: http://prometheus:9090/api/v1/write
+        send_exemplars: true
 
 storage:
   trace:
@@ -37,9 +37,6 @@ storage:
       path: /var/tempo/blocks
 
 overrides:
-  defaults:
-    metrics_generator:
-      processors: [service-graphs, span-metrics]
-      remote_write:
-        - url: http://prometheus:9090/api/v1/write
-          send_exemplars: true
+  metrics_generator_processors:
+    - service-graphs
+    - span-metrics
