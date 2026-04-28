@@ -42,10 +42,10 @@ cd Insurance-Quoter
 ### 2. Variables de entorno
 
 ```bash
-cp .env.example .env
+cp -n .env.example .env
 ```
 
-Editar `.env` y reemplazar los valores `change_me` con credenciales reales para las bases de datos.
+El flag `-n` no sobreescribe si `.env` ya existe. Editar `.env` y reemplazar los valores `change_me` con credenciales reales.
 
 ### 3. Iniciar
 
